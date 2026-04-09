@@ -248,12 +248,12 @@ local normalizeCenter(center) = {
 // 英文键盘下，对按键的 params 进行处理
 // 1. 将 character 替换为 symbol
 //    处理方式为 params = replaceCharacterToSymbolRecursive(params)
-// 2. 将 params 中的 whenAlphabetic 合并到 params
-//    处理方式为 params = std.objectRemoveKey(params + std.get(params, 'whenAlphabetic', default={}), 'whenAlphabetic') 的内容
+// 2. 将 params 中的 OnAlphabetic 合并到 params
+//    处理方式为 params = std.objectRemoveKey(params + std.get(params, 'OnAlphabetic', default={}), 'OnAlphabetic') 的内容
 local processButtonParams(isAlphabetic, params) =
   if isAlphabetic then
     local paramsWithSymbol = replaceCharacterToSymbolRecursive(params);
-    std.mergePatch(paramsWithSymbol, std.get(paramsWithSymbol, 'whenAlphabetic', default={}))
+    std.mergePatch(paramsWithSymbol, std.get(paramsWithSymbol, 'OnAlphabetic', default={}))
   else
     params;
 

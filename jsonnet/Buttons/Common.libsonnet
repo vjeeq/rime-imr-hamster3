@@ -239,7 +239,7 @@ local settings = import '../Settings.libsonnet';
         center: { y: 0.3 }
       },
 
-      whenAlphabetic: {
+      OnAlphabetic: {
         text: ',', center: { y: 0.48 },
         swipeUp: { text: '.', center: { y: 0.28 } },
       },

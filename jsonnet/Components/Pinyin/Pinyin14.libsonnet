@@ -1,11 +1,11 @@
-local buttons = import '../Buttons/Layout14.libsonnet';
-local commonButtons = import '../Buttons/Common.libsonnet';
-local toolbarParams = import '../Buttons/Toolbar.libsonnet';
-local settings = import '../Settings.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
-local preedit = import 'Preedit.libsonnet';
-local toolbar = import 'Toolbar.libsonnet';
-local utils = import 'Utils.libsonnet';
+local buttons = import '../../Buttons/Layout14.libsonnet';
+local commonButtons = import '../../Buttons/Common.libsonnet';
+local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
+local settings = import '../../Settings.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../Utils.libsonnet';
 
 local keyboardLayout = {
   keyboardLayout: [

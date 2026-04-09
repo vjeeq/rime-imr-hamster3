@@ -1,4 +1,4 @@
-local settings = import '../Settings.libsonnet';
+local settings = import '../../Settings.libsonnet';
 local layout9  = import 'Pinyin9.libsonnet';
 local layout14 = import 'Pinyin14.libsonnet';
 local layout17 = import 'Pinyin17.libsonnet';

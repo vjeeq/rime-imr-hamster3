@@ -1,4 +1,4 @@
-local settings = import '../Settings.libsonnet';
+local settings = import '../../Settings.libsonnet';
 local numericRow = import 'NumericRow.libsonnet';
 
 {

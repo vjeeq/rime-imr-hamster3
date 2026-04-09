@@ -1,4 +1,4 @@
-local settings = import '../Settings.libsonnet';
+local settings = import '../../Settings.libsonnet';
 local numeric9 = import 'Numeric9.libsonnet';
 local numericRow = import 'NumericRow.libsonnet';
 local numericHex = import 'NumericHex.libsonnet';

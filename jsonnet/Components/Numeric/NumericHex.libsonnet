@@ -1,11 +1,11 @@
-local numericButtons = import '../Buttons/LayoutNumeric.libsonnet';
-local commonButtons = import '../Buttons/Common.libsonnet';
-local fonts = import '../Constants/Fonts.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
-local preedit = import 'Preedit.libsonnet';
-local toolbar = import 'Toolbar.libsonnet';
-local utils = import 'Utils.libsonnet';
-local settings = import '../Settings.libsonnet';
+local numericButtons = import '../../Buttons/LayoutNumeric.libsonnet';
+local commonButtons = import '../../Buttons/Common.libsonnet';
+local fonts = import '../../Constants/Fonts.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../Utils.libsonnet';
+local settings = import '../../Settings.libsonnet';
 
 local portraitNormalButtonSize = {
   size: { width: '112.5/1125' },

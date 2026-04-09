@@ -1,11 +1,11 @@
-local fonts = import '../Constants/Fonts.libsonnet';
-local pinyin9Buttons = import '../Buttons/Layout9.libsonnet';
-local commonButtons = import '../Buttons/Common.libsonnet';
-local settings = import '../Settings.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
-local preedit = import 'Preedit.libsonnet';
-local toolbar = import 'Toolbar.libsonnet';
-local utils = import 'Utils.libsonnet';
+local fonts = import '../../Constants/Fonts.libsonnet';
+local pinyin9Buttons = import '../../Buttons/Layout9.libsonnet';
+local commonButtons = import '../../Buttons/Common.libsonnet';
+local settings = import '../../Settings.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../Utils.libsonnet';
 
 
 // 窄 VStack 宽度样式

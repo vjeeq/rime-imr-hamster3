@@ -1,8 +1,11 @@
-local pinyinComponent = import 'Components/Pinyin.libsonnet';
-local temp26Component = import 'Components/PinyinTemp26.libsonnet';
-local alphabeticComponent = import 'Components/Alphabetic.libsonnet';
-local numericComponent = import 'Components/Numeric.libsonnet';
-local numericRowEnComponent = import 'Components/NumericRowEn.libsonnet';
+local pinyinComponent = import 'Components/Pinyin/Pinyin.libsonnet';
+local temp26Component = import 'Components/Pinyin/PinyinTemp26.libsonnet';
+local alphabeticComponent = import 'Components/Alphabetic/Alphabetic.libsonnet';
+local numericComponent = import 'Components/Numeric/Numeric.libsonnet';
+local numericRowEnComponent = import 'Components/Numeric/NumericRowEn.libsonnet';
+local symbolicComponent = import 'Components/Symbolic/Symbolic.libsonnet';
+local symbolicRowEnComponent = import 'Components/Symbolic/SymbolicRowEn.libsonnet';
+local emojisComponent = import 'Components/Emoji/Emojis.libsonnet';
 local panelComponent = import 'Components/Panel.libsonnet';
 local settings = import 'Settings.libsonnet';
 
@@ -11,10 +14,13 @@ local nameToComponent = {
   alphabetic: alphabeticComponent,
   numeric: numericComponent,
   panel: panelComponent,
+  [if settings.symbolicLayout != 'default' then 'symbolic']: symbolicComponent,
+  [if settings.emojiLayout != 'default' then 'emojis']: emojisComponent,
 
+   // 这几个组件只有在特定条件下才会被使用
   [if !std.startsWith(settings.keyboardLayout, '26') then 'temp26Key']: temp26Component,
-
   [if settings.numericLayout == 'row' then 'numericRowEn']: numericRowEnComponent,
+  [if settings.symbolicLayout == 'row' then 'symbolicRowEn']: symbolicRowEnComponent,
 };
 
 local getFileName(componentName, isPortrait) =

@@ -1,5 +1,5 @@
 local toolbarParams = import '../Buttons/Toolbar.libsonnet';
-local basicStyle = import 'BasicStyle.libsonnet';
+local basicStyle = import '../Styles/BasicStyle.libsonnet';
 local utils = import 'Utils.libsonnet';
 
 local keyboardLayout = {

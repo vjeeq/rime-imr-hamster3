@@ -140,7 +140,7 @@ local newAssetImageStyle(params={}, isDark=false) =
   );
 
 
-local newFileImageStyle(params={}, isDark=false) =
+local newFileImageStyle(params={}) =
 
   local type = { buttonStyleType: 'fileImage' };
 

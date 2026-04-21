@@ -75,11 +75,12 @@ local settings = import '../Settings.libsonnet';
     name: 'backspaceButton',
     params: {
       action: 'backspace',
-      repeatAction: 'backspace',
+      repeatAction: self.action,
       systemImageName: 'delete.left',
       highlightSystemImageName: 'delete.left.fill',
-      swipeUp: { action: { shortcut: '#deleteText'} },
-      swipeDown: { action: { shortcut: '#undo' } },
+      swipeUp: {
+        action: { sendKeys: 'Control+Backspace' } // 删除一个音节
+      },
     },
   },
 

@@ -97,7 +97,7 @@ local keyboardLayout = {
         style: fourthRowStyle.name,
         subviews: [
           { Cell: commonButtons.enterButton.name },
-          { Cell: commonButtons.commaButton.name },
+          { Cell: buttons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
           { Cell: buttons.alphabeticButton.name },
           { Cell: commonButtons.backspaceButton.name },

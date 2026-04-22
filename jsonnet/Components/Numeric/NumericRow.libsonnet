@@ -216,4 +216,5 @@ local newKeyLayout(isDark=false, isPortrait=false, keyboardType=KeyboardType.Chi
     + basicStyle.newButtonAnimation()
     + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
+    + basicStyle.returnKeyTypeChangedNotification
 }

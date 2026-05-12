@@ -930,6 +930,52 @@ local newButton(name, type='alphabetic', isDark=false, params={}) =
         ),
       },
 
+  // 回车键类型变化时生成 notification 及 foreground style
+  // whenReturnKeyChanged 是一个数组，每个元素包含：
+  //   returnKeyType: [int] 或 int — 要匹配的回车键类型
+  //   以及其他通知参数（action, text, systemImageName, backgroundStyle 等）
+  //
+  // 回车键类型值：
+  // 1-Go  2-Google  3-Join  4-Next  5-Route
+  // 6-Search  7-Send  8-Yahoo  9-Done  10-EmergencyCall  11-Continue
+  AddReturnKeyTypeChangeEvent(newForegroundStyle):
+    local hasReturnKeyParams = std.objectHas(root.params, 'whenReturnKeyChanged');
+    if !hasReturnKeyParams then
+      root
+    else
+      local returnKeyParams = root.params.whenReturnKeyChanged;
+      assert std.type(returnKeyParams) == 'array' : 'whenReturnKeyChanged 必须是数组类型';
+      local needUpdateHintStyle = std.objectHas(root[root.name], 'hintStyle');
+      root {
+      [root.name]+: {
+        notification+: [
+          root.name + 'ReturnKeyType'+i+'Notification' for i in std.range(0, std.length(returnKeyParams) - 1)
+        ]
+      },
+      reference+: {
+        [root.name + 'ReturnKeyType'+i+'Notification']:
+          assert std.objectHas(returnKeyParams[i], 'returnKeyType') : 'whenReturnKeyChanged[' + i + '] 必须包含 returnKeyType';
+          local returnKeyType = returnKeyParams[i].returnKeyType;
+          _buildNotificationBody(
+            {
+              notificationType: 'returnKeyType',
+              returnKeyType: if std.type(returnKeyType) == 'array' then returnKeyType else [returnKeyType],
+            },
+            returnKeyParams[i],
+            _buildForegroundStyleList(root.name, 'ReturnKeyType'+i, returnKeyParams[i]),
+            needUpdateHintStyle=needUpdateHintStyle,
+            hintStyleName=root.name + 'ReturnKeyType'+i+'HintStyle',
+          )
+        for i in std.range(0, std.length(returnKeyParams) - 1)
+      }
+      + std.foldl(
+        function(acc, i)
+          acc + _buildNotificationCompanionStyles('ReturnKeyType'+i, returnKeyParams[i], newForegroundStyle, needUpdateHintStyle),
+        std.range(0, std.length(returnKeyParams) - 1),
+        {}
+      ),
+    },
+
   GetButton(): {
     [root.name]: root[root.name],
   },
@@ -956,6 +1002,7 @@ local newAlphabeticButton(name, isDark=false, params={}, needHint=true, swipeTex
     .AddLongPress()
     .AddPreeditChangeEvent(newAlphabeticButtonForegroundStyle)
     .AddKeyboardActionEvent(newAlphabeticButtonForegroundStyle)
+    .AddReturnKeyTypeChangeEvent(newAlphabeticButtonForegroundStyle)
     .AddRimeOptionChangeEvent()
     .AddSchemaChangeEvent();
   button.GetButton() + button.reference;
@@ -972,6 +1019,7 @@ local newSystemButton(name, isDark=false, params={}) =
     .AddLongPress()
     .AddPreeditChangeEvent(newSystemButtonForegroundStyle)
     .AddKeyboardActionEvent(newSystemButtonForegroundStyle)
+    .AddReturnKeyTypeChangeEvent(newSystemButtonForegroundStyle)
     .AddRimeOptionChangeEvent()
     .AddSchemaChangeEvent();
   button.GetButton() + button.reference;
@@ -988,6 +1036,7 @@ local newColorButton(name, isDark=false, params={}) =
     .AddLongPress()
     .AddPreeditChangeEvent(newColorButtonForegroundStyle)
     .AddKeyboardActionEvent(newColorButtonForegroundStyle)
+    .AddReturnKeyTypeChangeEvent(newColorButtonForegroundStyle)
     .AddRimeOptionChangeEvent()
     .AddSchemaChangeEvent();
   button.GetButton() + button.reference;
@@ -1052,17 +1101,6 @@ local rimeSchemaChangedNotification =
     },
   };
 
-local returnKeyTypeChangedNotification =
-  {
-    // NOTE: 此通知仅用来更新 enterButton 的前景文字 $returnKeyType
-    //       匹配不上 returnKeyType:[] 中指定的值，就会使用默认的文字 $returnKeyType
-    returnKeyTypeChangedNotification:{
-      notificationType: 'returnKeyType',
-      returnKeyType: [],
-    },
-  };
-
-
 {
   getKeyboardActionText: getKeyboardActionText,
   keyboardBackgroundStyleName: keyboardBackgroundStyleName,
@@ -1110,5 +1148,4 @@ local returnKeyTypeChangedNotification =
 
   // notification
   rimeSchemaChangedNotification: rimeSchemaChangedNotification,
-  returnKeyTypeChangedNotification: returnKeyTypeChangedNotification,
 }

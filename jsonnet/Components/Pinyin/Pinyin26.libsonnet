@@ -248,5 +248,4 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + basicStyle.returnKeyTypeChangedNotification,
 }

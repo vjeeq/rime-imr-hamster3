@@ -182,5 +182,4 @@ else
     + basicStyle.newButtonAnimation()
     + newKeyLayout(isDark, isPortrait, extraParams)
     // Notifications
-    + basicStyle.returnKeyTypeChangedNotification
 }

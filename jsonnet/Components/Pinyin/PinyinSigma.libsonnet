@@ -222,5 +222,4 @@ else
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + basicStyle.returnKeyTypeChangedNotification,
 }

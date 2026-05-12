@@ -152,5 +152,4 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + basicStyle.returnKeyTypeChangedNotification,
 }

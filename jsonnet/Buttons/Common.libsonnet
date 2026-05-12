@@ -94,9 +94,6 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: 'enter',
       text: '$returnKeyType',
-      notification: [
-        'returnKeyTypeChangedNotification',
-      ],
 
       swipeUp: { action: { shortcut: '#行首' } },
       swipeDown: { action: { shortcut: '#行尾' } },
@@ -114,6 +111,14 @@ local settings = import '../Settings.libsonnet';
         backgroundStyle: 'systemButtonBackgroundStyle',
         normalColor: colors.systemButtonForegroundColor,
       },
+
+      whenReturnKeyChanged: [
+        {
+          // NOTE: 此通知仅用来更新 enterButton 的前景文字 $returnKeyType
+          //       匹配不上 returnKeyType:[] 中指定的值，就会使用默认的文字 $returnKeyType
+          returnKeyType: [],
+        },
+      ],
     },
   },
 

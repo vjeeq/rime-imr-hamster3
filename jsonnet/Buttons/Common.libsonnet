@@ -174,6 +174,12 @@ local settings = import '../Settings.libsonnet';
       text: if settings.preferIcon then '123' else '数字',
       swipeUp: { action: { keyboardType: 'symbolic' } },
       swipeDown: { action: { keyboardType: 'emojis' } },
+
+	  OnAlphabetic: {
+		// 对于英文键盘，如果数字键盘是 row 形式，那么切到 numericRowEn 键盘
+		// numericRowEn 键盘经过特殊处理，上面的符号都是用 symbol 直接上屏的
+		[if settings.numericLayout == 'row' then 'action']: { keyboardType: 'numericRowEn' },
+	  }
     }
     + ( // 对于 iPad 设备，长按数字键可以切换到 iOS 系统键盘列表中的下一个键盘
       if settings.iPad then {

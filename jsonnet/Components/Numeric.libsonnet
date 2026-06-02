@@ -1,7 +1,7 @@
-local settings = import '../../Settings.libsonnet';
-local numeric9 = import 'Numeric9.libsonnet';
-local numericRow = import 'NumericRow.libsonnet';
-local numericHex = import 'NumericHex.libsonnet';
+local settings = import '../Settings.libsonnet';
+local numeric9 = import './Numeric/Numeric9.libsonnet';
+local numericRow = import './Numeric/NumericRow.libsonnet';
+local numericHex = import './Numeric/NumericHex.libsonnet';
 
 {
   new(isDark, isPortrait):

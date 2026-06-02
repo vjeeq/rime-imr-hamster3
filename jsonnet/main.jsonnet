@@ -1,9 +1,9 @@
-local pinyinComponent = import 'Components/Pinyin/Pinyin.libsonnet';
+local pinyinComponent = import 'Components/Pinyin.libsonnet';
 local temp26Component = import 'Components/Pinyin/PinyinTemp26.libsonnet';
-local alphabeticComponent = import 'Components/Alphabetic/Alphabetic.libsonnet';
-local numericComponent = import 'Components/Numeric/Numeric.libsonnet';
+local alphabeticComponent = import 'Components/Alphabetic.libsonnet';
+local numericComponent = import 'Components/Numeric.libsonnet';
 local numericRowEnComponent = import 'Components/Numeric/NumericRowEn.libsonnet';
-local symbolicComponent = import 'Components/Symbolic/Symbolic.libsonnet';
+local symbolicComponent = import 'Components/Symbolic.libsonnet';
 local symbolicRowEnComponent = import 'Components/Symbolic/SymbolicRowEn.libsonnet';
 local panelComponent = import 'Components/Panel.libsonnet';
 local settings = import 'Settings.libsonnet';

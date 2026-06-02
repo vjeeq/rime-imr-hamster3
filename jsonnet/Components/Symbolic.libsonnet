@@ -1,6 +1,6 @@
-local settings = import '../../Settings.libsonnet';
-local symbolicRow = import 'SymbolicRow.libsonnet';
-local symbolicClassified = import 'SymbolicClassified.libsonnet';
+local settings = import '../Settings.libsonnet';
+local symbolicRow = import './Symbolic/SymbolicRow.libsonnet';
+local symbolicClassified = import './Symbolic/SymbolicClassified.libsonnet';
 
 {
   new(isDark, isPortrait):

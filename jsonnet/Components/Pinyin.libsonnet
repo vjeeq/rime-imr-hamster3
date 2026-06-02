@@ -1,11 +1,11 @@
-local settings = import '../../Settings.libsonnet';
-local layout9  = import 'Pinyin9.libsonnet';
-local layout14 = import 'Pinyin14.libsonnet';
-local layout17 = import 'Pinyin17.libsonnet';
-local layout18 = import 'Pinyin18.libsonnet';
-local layout26 = import 'Pinyin26.libsonnet';
-local layoutBopomofo = import 'PinyinBopomofo.libsonnet';
-local layoutSigma = import 'PinyinSigma.libsonnet';
+local settings = import '../Settings.libsonnet';
+local layout9  = import './Pinyin/Pinyin9.libsonnet';
+local layout14 = import './Pinyin/Pinyin14.libsonnet';
+local layout17 = import './Pinyin/Pinyin17.libsonnet';
+local layout18 = import './Pinyin/Pinyin18.libsonnet';
+local layout26 = import './Pinyin/Pinyin26.libsonnet';
+local layoutBopomofo = import './Pinyin/PinyinBopomofo.libsonnet';
+local layoutSigma = import './Pinyin/PinyinSigma.libsonnet';
 
 {
   new(isDark, isPortrait):

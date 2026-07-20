@@ -19,100 +19,139 @@ local commonButtons = import './Common.libsonnet';
   t9OneButton: {
     name: 't9OneButton',
     params: {
+      text: 'by*',
       action: { character: '1' },
-      swipeUp: { action: { symbol: '1' } },
-      text: '@/.',
-
-      whenPreeditChanged: {
-        text: '分词',
-      }
+      swipeUp: { text: '1' },
+      swipeDown: { text: '⼀' },
+      longPress: [
+        { text: 'b', action: { symbol: 'b' }, selected: true },
+        { text: 'y', action: { symbol: 'y' } },
+      ],
     },
   },
   t9TwoButton: {
     name: 't9TwoButton',
     params: {
+      text: 'kvc',
       action: { character: '2' },
-      swipeUp: { action: { symbol: '2' } },
-      text: 'abc',
+      swipeUp: { text: '2' },
+      swipeDown: { text: '⼁' },
+      longPress: [
+        { text: 'k', action: { symbol: 'k' } },
+        { text: 'v', action: { symbol: 'v' }, selected: true },
+        { text: 'c', action: { symbol: 'c' } },
+      ],
     },
   },
   t9ThreeButton: {
     name: 't9ThreeButton',
     params: {
+      text: 'qso',
       action: { character: '3' },
-      swipeUp: { action: { symbol: '3' } },
-      text: 'def',
+      swipeUp: { text: '3' },
+      swipeDown: { text: '⼃' },
+      longPress: [
+        { text: 'q', action: { symbol: 'q' } },
+        { text: 's', action: { symbol: 's' }, selected: true },
+        { text: 'o', action: { symbol: 'o' } },
+      ],
     },
   },
   t9FourButton: {
     name: 't9FourButton',
     params: {
+      text: 'fnz',
       action: { character: '4' },
-      swipeUp: { action: { symbol: '4' } },
-      text: 'ghi',
+      swipeUp: { text: '4' },
+      swipeDown: { text: '⼂' },
+      longPress: [
+        { text: 'f', action: { symbol: 'f' }, selected: true },
+        { text: 'n', action: { symbol: 'n' } },
+        { text: 'z', action: { symbol: 'z' } },
+      ],
     },
   },
   t9FiveButton: {
     name: 't9FiveButton',
     params: {
+      text: 'pix',
       action: { character: '5' },
-      swipeUp: { action: { symbol: '5' } },
-      text: 'jkl',
+      swipeUp: { text: '5' },
+      swipeDown: { text: '⼄' },
+      longPress: [
+        { text: 'p', action: { symbol: 'p' } },
+        { text: 'i', action: { symbol: 'i' }, selected: true },
+        { text: 'x', action: { symbol: 'x' } },
+      ],
     },
   },
   t9SixButton: {
     name: 't9SixButton',
     params: {
+      text: 'gte',
       action: { character: '6' },
-      swipeUp: { action: { symbol: '6' } },
-      text: 'mno',
+      swipeUp: { text: '6' },
+      swipeDown: { text: '*' },
+      longPress: [
+        { text: 'g', action: { symbol: 'g' } },
+        { text: 't', action: { symbol: 't' } },
+        { text: 'e', action: { symbol: 'e' }, selected: true },
+      ],
     },
   },
   t9SevenButton: {
     name: 't9SevenButton',
     params: {
+      text: 'jml',
       action: { character: '7' },
-      swipeUp: { action: { symbol: '7' } },
-      text: 'pqrs',
+      swipeUp: { text: '7' },
+      longPress: [
+        { text: 'j', action: { symbol: 'j' }, selected: true },
+        { text: 'm', action: { symbol: 'm' } },
+        { text: 'l', action: { symbol: 'l' } },
+      ],
     },
   },
   t9EightButton: {
     name: 't9EightButton',
     params: {
+      text: 'ruw',
       action: { character: '8' },
-      swipeUp: { action: { symbol: '8' } },
-      text: 'tuv',
+      swipeUp: { text: '8' },
+      longPress: [
+        { text: 'r', action: { symbol: 'r' } },
+        { text: 'u', action: { symbol: 'u' }, selected: true },
+        { text: 'w', action: { symbol: 'w' } },
+      ],
     },
   },
   t9NineButton: {
     name: 't9NineButton',
     params: {
+      text: 'hda',
       action: { character: '9' },
-      swipeUp: { action: { symbol: '9' } },
-      text: 'wxyz',
+      swipeUp: { text: '9' },
+      longPress: [
+        { text: 'h', action: { symbol: 'h' } },
+        { text: 'd', action: { symbol: 'd' } },
+        { text: 'a', action: { symbol: 'a' }, selected: true },
+      ],
     },
   },
-  // t9ZeroButton: {
-  //   name: 't9ZeroButton',
-  //   params: {
-  //     action: { character: '0' },
-  //     swipeUp: { action: { symbol: '0' } },
-  //     fontSize: 20,
-  //   },
-  // },
+  t9ZeroButton: {
+    name: 't9ZeroButton',
+    params: {
+      text: '0',
+      action: { character: '0' },
+      longPress: [
+        { text: ';', action: { character: ';' } },
+      ],
+      size: {
+        width: { percentage: 0.25 },
+      },
+    },
+  },
 
-  t9Buttons: [
-    self.t9OneButton,
-    self.t9TwoButton,
-    self.t9ThreeButton,
-    self.t9FourButton,
-    self.t9FiveButton,
-    self.t9SixButton,
-    self.t9SevenButton,
-    self.t9EightButton,
-    self.t9NineButton,
-    // self.t9ZeroButton,
-  ],
 
   // t9拼音符号列表兼拼音候选
   t9SymbolsCollection: {
@@ -133,9 +172,11 @@ local commonButtons = import './Common.libsonnet';
   // 空格，增加上划输入数字 0 功能
   spaceButton: {
     name: 'spaceButton',
-    params: std.mergePatch(commonButtons.spaceButton.params, {
-      swipeUp: { action: { symbol: '0' } },
-    }),
+    params: {
+      action: 'space',
+      systemImageName: 'space',
+      center: { x: 0.5, y: 0.5 },
+    },
   },
 
   // 光标右移
@@ -146,4 +187,114 @@ local commonButtons = import './Common.libsonnet';
       text: '选择',
     }
   },
+
+  t9aButton: {
+    name: 't9aButton',
+    params: {
+      action: { symbol: '，' },
+      text: '，',
+      swipeUp: { action: { character: 'a', text: 'a' } },
+      whenPreeditChanged: {
+        action: { character: 'a' },
+        text: 'A¹',
+        swipeUp: {
+          action: { character: 'A' },
+          text: '',
+        },
+      },
+    },
+  },
+  t9bButton: {
+    name: 't9bButton',
+    params: {
+      action: { symbol: '。' },
+      text: '。',
+      swipeUp: { action: { character: 'b', text: 'b' } },
+      whenPreeditChanged: {
+        action: { character: 'b' },
+        text: 'B²',
+        swipeUp: {
+          action: { character: 'B' },
+          text: '',
+        },
+      },
+    },
+  },
+  t9cButton: {
+    name: 't9cButton',
+    params: {
+      action: { symbol: '？' },
+      text: '？',
+      swipeUp: { action: { character: 'c', text: 'c' } },
+      whenPreeditChanged: {
+        action: { character: 'c' },
+        text: 'C³',
+        swipeUp: {
+          action: { character: 'C' },
+          text: '',
+        },
+      },
+    },
+  },
+  t9dButton: {
+    name: 't9dButton',
+    params: {
+      action: { symbol: '：' },
+      text: '：',
+      swipeUp: { action: { character: 'd', text: 'd' } },
+      whenPreeditChanged: {
+        action: { character: 'd' },
+        text: 'D⁴',
+        swipeUp: {
+          action: { character: 'D' },
+          text: '',
+        },
+      },
+    },
+  },
+
+  t9eButton: {
+    name: 't9eButton',
+    params: {
+      action: { symbol: '～' },
+      text: '～',
+      swipeUp: { action: { character: 'e', text: 'e' } },
+      whenPreeditChanged: {
+        action: { character: 'e' },
+        text: 'E⁰',
+        swipeUp: {
+          action: { character: 'E' },
+          text: '',
+        },
+      },
+    },
+  },
+
+  t9fButton: {
+    name: 't9fButton',
+    params: {
+      action: { character: 'f' },
+      text: 'f',
+    },
+  },
+
+
+  t9Buttons: [
+    self.t9OneButton,
+    self.t9TwoButton,
+    self.t9ThreeButton,
+    self.t9FourButton,
+    self.t9FiveButton,
+    self.t9SixButton,
+    self.t9SevenButton,
+    self.t9EightButton,
+    self.t9NineButton,
+    self.t9ZeroButton,
+    self.t9aButton,
+    self.t9bButton,
+    self.t9cButton,
+    self.t9dButton,
+    self.t9eButton,
+    self.t9fButton,
+  ],
 }

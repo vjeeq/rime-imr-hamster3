@@ -68,6 +68,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: 'tab',
       systemImageName: 'arrow.right.to.line',
+      swipeUp: { action: { sendKeys: 'Shift+tab' }}
     },
   },
 
@@ -78,11 +79,16 @@ local settings = import '../Settings.libsonnet';
       repeatAction: self.action,
       systemImageName: 'delete.left',
       highlightSystemImageName: 'delete.left.fill',
-	  whenPreeditChanged: {
-		swipeUp: {
-          action: { sendKeys: 'Control+Backspace' } // 删除一个音节
-		},
-	  },
+      swipeUp: { action: { shortcut: '#deleteText'} },
+      swipeDown: { action: { shortcut: '#undo' } },
+      whenPreeditChanged: {
+        swipeUp: {
+          action: { sendKeys: 'Control+Backspace' } // 删除一个音节 
+        },
+        swipeDown: {
+          action: { sendKeys: 'Control+Backspace' }
+        },
+      }
     },
   },
 
@@ -222,6 +228,14 @@ local settings = import '../Settings.libsonnet';
 
       [if !std.startsWith(settings.keyboardLayout, '26') then 'swipeDown']: {
         action: { keyboardType: 'temp26Key' },
+      },
+      whenPreeditChanged: {
+        text: '>',
+        action: { sendKeys: 'Down', },
+        swipeUp: {
+          text: '<',
+          action: { sendKeys: 'Up', },
+        },
       }
     },
   },
@@ -262,9 +276,24 @@ local settings = import '../Settings.libsonnet';
         center: { y: 0.3 }
       },
 
+      swipeDown: {
+        action: { character: '@' },
+        text: '@',
+      },
+
       OnAlphabetic: {
-        text: ',', center: { y: 0.48 },
-        swipeUp: { text: '.', center: { y: 0.28 } },
+        text: '.',
+        action: { character: '.' }, 
+        center: { y: 0.48 },
+        swipeUp: { 
+          text: ',',
+          action: { character: ',' },
+          center: { y: 0.28 }
+        },
+        swipeDown: {
+          action: { character: '@' },
+          text: '@',
+        },
       },
     },
   },

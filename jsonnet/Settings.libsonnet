@@ -1,70 +1,29 @@
 #======================================
-# 此文件用于微调皮肤设置。
-# 可根据需要修改下方内容，调整皮肤的相关参数。
-# 修改完成后，保存本文件，然后回到皮肤界面，
-# 长按皮肤，选择「运行 main.jsonnet」生效。
+# 皮肤设置文件。改完保存后，长按皮肤 →「运行 main.jsonnet」
 #======================================
 {
-  # 主键盘布局选择，可选值如下：
-  # 26 : 常规26键布局
-  # 26b: 左移26键布局(zxcvbnm行左移半格)
-  # 9  : 拼音9键布局
-  # 14 : 14键布局（双键布局）
-  # 17 : 17键布局
-  # 18 : 18键布局
-  # bopomofo : 注音佈局
-  # sigma : 西戈拼音布局
+  # 键盘布局:  9=九键  17=17键  26=全键  sigma=西戈拼音
   keyboardLayout: '26',
 
-
-  # 数字键盘布局选择，可选值如下：
-  # 9 : 九宫格布局
-  # row : 数字显示在一行
-  # hex : 十六进制布局
+  # 数字键盘:  9=九宫格  row=横排  hex=十六进制
   numericLayout: '9',
 
-
-  # 符号键盘布局选择，可选值如下：
-  # default : 元书自带的符号键盘
-  # row : 行式符号布局
-  # classified : 分类符号布局
+  # 符号键盘:  default=系统自带  row=横排  classified=分类
   symbolicLayout: 'default',
 
-
-  # 输入时空格键上的内容，支持固定内容和变量
-  # 注意：bopomofo 佈局下此項不生效，因為空格鍵打字中用於選聲調（一聲）
-  # 变量可选如下：
-  # $rimePreedit：Rime 预编辑文本
-  # $rimeCandidate：Rime 首个候选字
-  # $rimeCandidateComment: Rime 首个候选字的 comment 信息
+  # 打字时空格键显示的文字（仅 26/17/sigma 布局有效）
   spaceButtonComposingText: '选定',
 
-
-  # 是否为 iPad 设备，目前仅用于调整高度
-  # true 是 iPad，false 是 iPhone
+  # iPad 模式 (true=是  false=否)
   iPad: false,
 
+  # 方案名显示位置：{ x: 0~1, y: 0~1 }，null=不显示
+  spaceButtonSchemaNameCenter: { x: 0.2, y: 0.7 },
 
-  # 空格键方案名称显示位置
-  # x, y 取值范围为 [0, 1]
-  # x 值越小越靠左，y 值越小越靠上
-  # 特殊值 null 表示不显示方案名称
-  spaceButtonSchemaNameCenter:
-    { x: 0.2, y: 0.7 }, # 左下角
-    # { x: 0.5, y: 0.5 }, # 中间
-    # null,               # 不显示
-
-
-  # 上下滑动提示文字显示位置
-  # hide      🙈不显示
-  # topLeft   ↖️左上角
-  # top       ⬆️正上方
-  # topRight  ↗️右上角
-  # bottomLeft   ↙️左下角
-  # bottom       ⬇️正下方
-  # bottomRight  ↘️右下角
+  # 上划提示位置:  hide/top/topLeft/topRight/bottom/bottomLeft/bottomRight
   swipeUpTextCenter: 'top',
-  swipeDownTextCenter: 'hide',
+  # 下划提示位置:  同上
+  swipeDownTextCenter: 'bottom',
 
 
   # toolbar 按钮配置
@@ -87,53 +46,31 @@
   #
   # 将上述代号填入下面的数组即可
   toolbarSlideButtons: [ 8, 17, 1, 2, 3, 10, 12 ],
+  # 工具栏滑动区宽度（占几个按钮位）
+  toolbarSlideButtonsMaxCount: { portrait: 5, landscape: 8 },
 
-  # 滑动按钮区域占几个按键宽度
-  toolbarSlideButtonsMaxCount: {
-    portrait: 5,   # 竖屏
-    landscape: 8,  # 横屏
-  },
-
-
-  # 同时配了图标和文字的，优先显示图标还是文字
-  # true 显示图标，false 显示文字
+  # 优先显示图标 (true=图标  false=文字)
   preferIcon: true,
 
-
-  # 主题色
-  # 0-无  1-红色  2-绿色  3-橙色  4-蓝色  5-紫色
+  # 主题色:  0无  1红  2绿  3橙  4蓝  5紫
   accentColor: 4,
 
-
-  # 中文模式下，字母键是否大写显示
-  # 注意：17键布局、注音佈局、西戈码布局下此设置无效
-  # true 大写，false 小写
+  # 中文模式下字母键大写 (true=大写  false=小写，仅 26键/西戈 有效)
   uppercaseForChinese: true,
 
-
-  # shiftButton 的功能定义
+  # Shift 键行为
   shiftButtonParams: {
     systemImageName: 'shift',
     action: 'shift',
-
     uppercased: { systemImageName: 'shift.fill', },
     capsLocked: { systemImageName: 'capslock.fill', },
-
     whenPreeditChanged: {
       action: { character: "'" },
       systemImageName: 'square.and.line.vertical.and.square',
       text: '分词',
-
-      # action: 'tab',
-      # systemImageName: 'arrow.right.to.line',
-      # text: 'Tab',
     },
   },
 
-
-  # Rime 方案中的快符
-  quickAction:
-    { character: ';' },
-    # { character: '/' },
-
+  # 快符（分号）
+  quickAction: { character: ';' },
 }

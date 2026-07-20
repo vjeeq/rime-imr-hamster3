@@ -7,14 +7,11 @@
 各文件及包含的按键对应如下：
 - README.md：本说明文件。
 - Common：一些通用按键功能，例如shift, space, enter 等。
-- Layout9: 九宫格键盘。
-- Layout14: 14键布局。
+- Layout9: 九键键盘。
 - Layout17：17键布局。
-- Layout18：18键布局。
-- Layout26：26 键中文和英文键盘。
+- Layout26：26键中文和英文键盘。
 - LayoutNumeric：数字键盘。
-- LayoutBopomofo：注音键盘。
-- LayoutSigma: 西戈码键盘。
+- LayoutSigma: 西戈拼音键盘。
 - Toolbar：工具栏和浮动面板中的按键。
 
 按键的具体配置语法可以参考后面的「按键语法说明」部分。

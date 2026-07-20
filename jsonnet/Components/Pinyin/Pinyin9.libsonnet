@@ -41,8 +41,11 @@ local t9KeyboardLayout = {
       VStack: {
         style: narrowVStackStyle.name,
         subviews: [
-          { Cell: pinyin9Buttons.t9SymbolsCollection.name, },
-          { Cell: commonButtons.numericButton.name, },
+          { Cell: pinyin9Buttons.t9aButton.name, },
+          { Cell: pinyin9Buttons.t9bButton.name, },
+          { Cell: pinyin9Buttons.t9cButton.name, },
+          { Cell: pinyin9Buttons.t9dButton.name, },
+          { Cell: pinyin9Buttons.t9eButton.name, },
         ],
       },
     },
@@ -79,7 +82,7 @@ local t9KeyboardLayout = {
           {
             HStack: {
               subviews: [
-                { Cell: pinyin9Buttons.cursorRightButton.name, },
+                { Cell: pinyin9Buttons.t9ZeroButton.name, },
                 { Cell: pinyin9Buttons.spaceButton.name, },
                 { Cell: commonButtons.alphabeticButton.name, },
               ],
@@ -93,7 +96,7 @@ local t9KeyboardLayout = {
         style: narrowVStackStyle.name,
         subviews: [
           { Cell: commonButtons.backspaceButton.name, },
-          { Cell: commonButtons.clearPreeditButton.name, },
+          { Cell: commonButtons.tabButton.name, },
           { Cell: commonButtons.enterButton.name, },
         ],
       },
@@ -224,9 +227,9 @@ local newKeyLayout(isDark=false, isPortrait=false, extraParams={}) =
   )
 
   + basicStyle.newSystemButton(
-    commonButtons.clearPreeditButton.name,
+    commonButtons.tabButton.name,
     isDark,
-    commonButtons.clearPreeditButton.params,
+    commonButtons.tabButton.params,
   )
 
   + basicStyle.newColorButton(

@@ -799,7 +799,8 @@ local newButton(name, type='alphabetic', isDark=false, params={}) =
             foregroundList,
             needUpdateHintStyle=needUpdateHintStyle,
             hintStyleName=root.name + suffix + 'HintStyle',
-          ),
+          )
+          + utils.extractProperties(root[root.name], ['capsLockedStateForegroundStyle', 'uppercasedStateForegroundStyle']),
       }
       + _buildNotificationCompanionStyles(suffix, eventParams, newForegroundStyle, needUpdateHintStyle),
     },

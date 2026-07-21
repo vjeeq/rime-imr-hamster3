@@ -178,8 +178,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { keyboardType: 'numeric' },
       text: if settings.preferIcon then '123' else '数字',
-      swipeUp: { action: { keyboardType: 'symbolic' } },
-      swipeDown: { action: { keyboardType: 'emojis' } },
+
+      whenPreeditChanged: {
+        action: { sendKeys: 'Right' },
+        text: '→',
+        swipeUp: {
+          action: { sendKeys: 'Left' },
+          text: '←',
+        },
+      },
 
 	  OnAlphabetic: {
 		// 对于英文键盘，如果数字键盘是 row 形式，那么切到 numericRowEn 键盘
@@ -230,10 +237,10 @@ local settings = import '../Settings.libsonnet';
         action: { keyboardType: 'temp26Key' },
       },
       whenPreeditChanged: {
-        text: '>',
+        text: '↓',
         action: { sendKeys: 'Down', },
         swipeUp: {
-          text: '<',
+          text: '↑',
           action: { sendKeys: 'Up', },
         },
       }
@@ -277,8 +284,8 @@ local settings = import '../Settings.libsonnet';
       },
 
       swipeDown: {
-        action: { character: '@' },
-        text: '@',
+        action: { character: '~' },
+        text: '~',
       },
 
       OnAlphabetic: {
@@ -291,8 +298,8 @@ local settings = import '../Settings.libsonnet';
           center: { y: 0.28 }
         },
         swipeDown: {
-          action: { character: '@' },
-          text: '@',
+          action: { character: '~' },
+          text: '~',
         },
       },
     },

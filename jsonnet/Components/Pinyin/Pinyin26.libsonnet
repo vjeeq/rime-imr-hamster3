@@ -173,7 +173,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newSystemButton(
     commonButtons.numericButton.name,
     isDark,
-    { size: { width: '225/1125' } }
+    { size: { width: '168.75/1125' } }
     + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
   )
 
@@ -202,7 +202,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     basicStyle.newSystemButton(
     switchButton.name,
     isDark,
-    portraitNormalButtonSize
+    { size: { width: '143.75/1125' } }
     + utils.processButtonParams(isAlphabetic, switchButton.params)
   )
   + basicStyle.newColorButton(

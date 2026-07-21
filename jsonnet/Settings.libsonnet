@@ -18,7 +18,7 @@
   iPad: false,
 
   # 方案名显示位置：{ x: 0~1, y: 0~1 }，null=不显示
-  spaceButtonSchemaNameCenter: { x: 0.2, y: 0.7 },
+  spaceButtonSchemaNameCenter: { x: 0.5, y: 0.7 },  # 水平居中，靠下
 
   # 上划提示位置:  hide/top/topLeft/topRight/bottom/bottomLeft/bottomRight
   swipeUpTextCenter: 'top',
@@ -45,7 +45,7 @@
   # 26-左移  27-右移
   #
   # 将上述代号填入下面的数组即可
-  toolbarSlideButtons: [ 8, 17, 1, 2, 3, 10, 12 ],
+  toolbarSlideButtons: [ 17, 8, 9, 12 ],
   # 工具栏滑动区宽度（占几个按钮位）
   toolbarSlideButtonsMaxCount: { portrait: 5, landscape: 8 },
 
@@ -65,9 +65,10 @@
     uppercased: { systemImageName: 'shift.fill', },
     capsLocked: { systemImageName: 'capslock.fill', },
     whenPreeditChanged: {
-      action: { character: "'" },
-      systemImageName: 'square.and.line.vertical.and.square',
-      text: '分词',
+      action: 'shift',
+      systemImageName: 'shift',
+      swipeUp: { action: { sendKeys:'tab' } },
+      swipeDown: { action: { sendKeys: 'Shift+tab' } },
     },
   },
 

@@ -137,8 +137,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'a' },
       uppercased: { action: { character: 'A' } },
-      swipeUp: { action: { character: '!' } },
-      swipeDown: { action: { character: '#' } },
+      swipeUp: { action: { character: '+' } },
+      swipeDown: { action: { character: '=' } },
       longPress: [
         { action: { character: 'A' } },
       ],
@@ -149,8 +149,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 's' },
       uppercased: { action: { character: 'S' } },
-      swipeUp: { action: { character: '?' } },
-      swipeDown: { action: { character: '$' } },
+      swipeUp: { action: { character: '*' } },
+      swipeDown: { action: { character: '^' } },
       longPress: [
         { action: { character: 'S' } },
       ],
@@ -245,8 +245,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'z' },
       uppercased: { action: { character: 'Z' } },
-      swipeUp: { action: { character: '|' } },
-      swipeDown: { action: { character: '\\' } },
+      swipeUp: { action: { character: '/' } },
       longPress: [
         { action: { character: 'Z' }, },
       ],
@@ -258,7 +257,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'x' },
       uppercased: { action: { character: 'X' } },
       swipeUp: { action: { character: '-' } },
-      swipeDown: { action: { character: '^' } },
+      swipeDown: { action: { character: '\\' } },
       longPress: [
         { action: { character: 'X' }, },
       ],
@@ -270,7 +269,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'c' },
       uppercased: { action: { character: 'C' } },
       swipeUp: { action: { character: '_' } },
-      swipeDown: { action: { character: '~' } },
+      swipeDown: { action: { character: '|' } },
       longPress: [
         { action: { character: 'C' }, },
       ],
@@ -286,8 +285,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'v' },
       uppercased: { action: { character: 'V' } },
-      swipeUp: { action: { character: '*' } },
-      swipeDown: { action: { character: '`' } },
+      swipeUp: { action: { character: '&' } },
+      swipeDown: { action: { character: '$' } },
       longPress:  [
         { action: { character: 'V' }, },
       ],
@@ -299,7 +298,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'b' },
       uppercased: { action: { character: 'B' } },
       swipeUp: { action: { character: '%' } },
-      swipeDown: { action: { character: '&' } },
+      swipeDown: { action: { character: '`' } },
       longPress: [
         { action: { character: 'B' } },
       ],
@@ -310,8 +309,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'n' },
       uppercased: { action: { character: 'N' } },
-      swipeUp: { action: { character: '+' } },
-      swipeDown: { action: { character: '=' } },
+      swipeUp: { action: { character: '!' } },
+      swipeDown: { action: { character: '@' } },
       longPress: [
         { action: { character: 'N' }, },
       ],
@@ -327,7 +326,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'm' },
       uppercased: { action: { character: 'M' } },
-      swipeUp: { action: { character: '/' } },
+      swipeUp: { action: { character: '?' } },
+      swipeDown: { action: { character: '#' } },
       longPress: [
         { action: { character: 'M' } },
       ],

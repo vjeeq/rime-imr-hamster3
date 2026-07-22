@@ -25,6 +25,11 @@ local getFileName(componentName, isPortrait) =
   componentName + (if isPortrait then 'Portrait' else 'Landscape');
 
 local config = {
+  fontFace: [
+    { url: 'PlangothicP1-Regular.ttf' },
+    { url: 'PlangothicP2-Regular.ttf' },
+  ],
+} + {
   [name]: {
     iPhone: {
       portrait: getFileName(name, isPortrait=true),

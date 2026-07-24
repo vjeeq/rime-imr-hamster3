@@ -173,14 +173,14 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newSystemButton(
     commonButtons.numericButton.name,
     isDark,
-    { size: { width: '168.75/1125' } }
+    { size: { width: '207.5/1125' } }
     + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
   )
 
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    portraitNormalButtonSize + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
+    { size: { width: '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
@@ -202,7 +202,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     basicStyle.newSystemButton(
     switchButton.name,
     isDark,
-    { size: { width: '143.75/1125' } }
+    { size: { width: '130/1125' } }
     + utils.processButtonParams(isAlphabetic, switchButton.params)
   )
   + basicStyle.newColorButton(

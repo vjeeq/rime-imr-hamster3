@@ -55,6 +55,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'e' },
       uppercased: { action: { character: 'E' } },
       swipeUp: { action: { character: '3' } },
+      swipeDown: { text: 'SH' },
       longPress: [
         { action: { character: 'E' } },
       ],

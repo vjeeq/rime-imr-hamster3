@@ -3,6 +3,7 @@ local layout9  = import './Pinyin/Pinyin9.libsonnet';
 local layout17 = import './Pinyin/Pinyin17.libsonnet';
 local layout26 = import './Pinyin/Pinyin26.libsonnet';
 local layoutSigma = import './Pinyin/PinyinSigma.libsonnet';
+local layoutKeytao = import './Pinyin/PinyinKeytao.libsonnet';
 
 {
   new(isDark, isPortrait):
@@ -12,6 +13,8 @@ local layoutSigma = import './Pinyin/PinyinSigma.libsonnet';
       layout17.new(isDark, isPortrait)
     else if settings.keyboardLayout == 'sigma' then
       layoutSigma.new(isDark, isPortrait)
+    else if settings.keyboardLayout == 'keytao' then
+      layoutKeytao.new(isDark, isPortrait)
     else
       layout26.new(isDark, isPortrait),
 }

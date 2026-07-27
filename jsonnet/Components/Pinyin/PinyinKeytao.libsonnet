@@ -1,331 +1,241 @@
-# =====================================
-# 此文件用于自定义键盘按键功能。
-# 可根据需要修改下方内容，调整各类按键的行为
-# 修改完成后，保存本文件，然后回到皮肤界面，
-# 长按皮肤，选择「运行 main.jsonnet」生效。
-#
-# 包含中文26键布局和英文26键布局中的字母键
-# =====================================
+local buttons = import '../../Buttons/LayoutKeytao.libsonnet';
+local commonButtons = import '../../Buttons/CommonKeytao.libsonnet';
+local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
+local settings = import '../../Settings.libsonnet';
+local basicStyle = import '../../Styles/BasicStyle.libsonnet';
+local preedit = import '../Preedit.libsonnet';
+local toolbar = import '../Toolbar.libsonnet';
+local utils = import '../../Utils/Utils.libsonnet';
 
-local colors = import '../Constants/Colors.libsonnet';
-local fonts = import '../Constants/Fonts.libsonnet';
-local settings = import '../Settings.libsonnet';
+local portraitNormalButtonSize = {
+  size: { width: '112.5/1125' },
+};
+
+// 枚举键盘类型
+local KeyboardType = {
+  Chinese: 0,
+  English: 1,
+  Temp26Key: 2,
+};
+
+local getSwitchButton(keyboardType) =
+  if keyboardType == KeyboardType.English then
+    commonButtons.pinyinButton
+  else if keyboardType == KeyboardType.Temp26Key then
+    commonButtons.goBackButton
+  else
+    commonButtons.alphabeticButton;
+
+local keyboardLayout(keyboardType) = {
+  keyboardLayout: [
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.qButton.name },
+          { Cell: buttons.wButton.name },
+          { Cell: buttons.eButton.name },
+          { Cell: buttons.rButton.name },
+          { Cell: buttons.tButton.name },
+          { Cell: buttons.yButton.name },
+          { Cell: buttons.uButton.name },
+          { Cell: buttons.iButton.name },
+          { Cell: buttons.oButton.name },
+          { Cell: buttons.pButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: buttons.aButton.name },
+          { Cell: buttons.sButton.name },
+          { Cell: buttons.dButton.name },
+          { Cell: buttons.fButton.name },
+          { Cell: buttons.gButton.name },
+          { Cell: buttons.hButton.name },
+          { Cell: buttons.jButton.name },
+          { Cell: buttons.kButton.name },
+          { Cell: buttons.lButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.shiftButton.name },
+          { Cell: buttons.zButton.name },
+          { Cell: buttons.xButton.name },
+          { Cell: buttons.cButton.name },
+          { Cell: buttons.vButton.name },
+          { Cell: buttons.bButton.name },
+          { Cell: buttons.nButton.name },
+          { Cell: buttons.mButton.name },
+          { Cell: commonButtons.backspaceButton.name },
+        ],
+      },
+    },
+    {
+      HStack: {
+        subviews: [
+          { Cell: commonButtons.numericButton.name },
+          { Cell: commonButtons.commaButton.name },
+          { Cell: commonButtons.spaceButton.name },
+          { Cell: getSwitchButton(keyboardType).name },
+          { Cell: commonButtons.enterButton.name },
+        ],
+      },
+    },
+  ],
+};
+
+local getAlphabeticButtonSize(name) =
+  local extra = {
+    [buttons.aButton.name]: {
+      size:
+        { width: '168.75/1125' },
+      bounds:
+        { width: '112.5/168.75', alignment: 'right' },
+    },
+    [buttons.lButton.name]: {
+      size:
+        { width: '168.75/1125' },
+      bounds:
+        { width: '112.5/168.75', alignment: 'left' },
+    },
+  };
+  (
+  if std.objectHas(extra, name) then
+    extra[name]
+  else
+    portraitNormalButtonSize
+  );
+
+local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
+  local isAlphabetic = keyboardType == KeyboardType.English;
+  {
+    keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
+    keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
+  }
+  + keyboardLayout(keyboardType)
+
+  // letter Buttons
+  + std.foldl(function(acc, button)
+      acc +
+      basicStyle.newAlphabeticButton(
+        button.name,
+        isDark,
+        getAlphabeticButtonSize(button.name) +
+        utils.processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
+        (
+          if keyboardType != KeyboardType.English && settings.uppercaseForChinese then
+            basicStyle.newAlphabeticButtonUppercaseForegroundStyle(isDark, button.params) + basicStyle.getKeyboardActionText(button.params.uppercased)
+          else {}
+        )),
+      buttons.letterButtons,
+      {})
+
+  // Third Row
+  + basicStyle.newSystemButton(
+    commonButtons.shiftButton.name,
+    isDark,
+    (
+      if settings.keyboardLayout=='26b' then portraitNormalButtonSize else
+      {
+        size:
+          { width: '168.75/1125' },
+        bounds:
+          { width: '151/168.75', alignment: 'left' },
+      }
+    )
+    + utils.processButtonParams(isAlphabetic, commonButtons.shiftButton.params)
+  )
+
+  + basicStyle.newSystemButton(
+    commonButtons.backspaceButton.name,
+    isDark,
+    (
+      if settings.keyboardLayout=='26b' then
+      {
+        size: { width: '225/1125' },
+      }
+      else
+      {
+        size:
+          { width: '168.75/1125' },
+        bounds:
+          { width: '151/168.75', alignment: 'right' },
+      }
+    )
+    + utils.processButtonParams(isAlphabetic, commonButtons.backspaceButton.params),
+  )
+
+  // Fourth Row
+  + basicStyle.newSystemButton(
+    commonButtons.numericButton.name,
+    isDark,
+    { size: { width: '207.5/1125' } }
+    + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
+  )
+
+  + basicStyle.newAlphabeticButton(
+    commonButtons.commaButton.name,
+    isDark,
+    { size: { width: '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
+  )
+  + basicStyle.newAlphabeticButton(
+    commonButtons.spaceButton.name,
+    isDark,
+    basicStyle.newSpaceButtonForegroundStyle(
+      utils.processButtonParams(isAlphabetic, commonButtons.spaceButton.params),
+      if keyboardType == KeyboardType.English then
+        'English'
+      else if keyboardType == KeyboardType.Temp26Key then
+        '临时中文'
+      else
+        '$rimeSchemaName',
+      isDark
+    ),
+    needHint=false,
+  )
+  + local switchButton = getSwitchButton(keyboardType);
+    basicStyle.newSystemButton(
+    switchButton.name,
+    isDark,
+    { size: { width: '130/1125' } }
+    + utils.processButtonParams(isAlphabetic, switchButton.params)
+  )
+  + basicStyle.newColorButton(
+    commonButtons.enterButton.name,
+    isDark,
+    {
+      size: { width: '250/1125' },
+    } + utils.processButtonParams(isAlphabetic, commonButtons.enterButton.params)
+  )
+;
 
 {
-  local root = self,
+  // 枚举键盘类型
+  KeyboardType:: KeyboardType,
 
-  // 按键定义
-  qButton: {
-    name: 'qButton',
-    params: {
-      action: { character: 'q' },
-      uppercased: { action: { character: 'Q' } },
-      swipeUp: { action: { character: '1' }, text: 'iu ua' },
-      swipeDown: { text: 'ZH' },
-      longPress: [
-        { action: { character: 'Q' } },
-      ],
-    },
-  },
-  wButton: {
-    name: 'wButton',
-    params: {
-      action: { character: 'w' },
-      uppercased: { action: { character: 'W' } },
-      swipeUp: { action: { character: '2' }, text: 'ei un' },
-      swipeDown: { text: 'CH' },
-      longPress: [
-        { action: { character: 'W' } },
-      ],
-    },
-  },
-  eButton: {
-    name: 'eButton',
-    params: {
-      action: { character: 'e' },
-      uppercased: { action: { character: 'E' } },
-      swipeUp: { action: { character: '3' }, text: 'sh e' },
-      longPress: [
-        { action: { character: 'E' } },
-      ],
-    },
-  },
-  rButton: {
-    name: 'rButton',
-    params: {
-      action: { character: 'r' },
-      uppercased: { action: { character: 'R' } },
-      swipeUp: { action: { character: '4' }, text: 'eng' },
-      longPress: [
-        { action: { character: 'R' } },
-      ],
-    },
-  },
-  tButton: {
-    name: 'tButton',
-    params: {
-      action: { character: 't' },
-      uppercased: { action: { character: 'T' } },
-      swipeUp: { action: { character: '5' }, text: 'uan' },
-      longPress: [
-        { action: { character: 'T' } },
-      ],
-    },
-  },
-  yButton: {
-    name: 'yButton',
-    params: {
-      action: { character: 'y' },
-      uppercased: { action: { character: 'Y' } },
-      swipeUp: { action: { character: '6' }, text: 'ong' },
-      swipeDown: { text: 'iong' },
-      longPress: [
-        { action: { character: 'Y' } },
-      ],
-    },
-  },
-  uButton: {
-    name: 'uButton',
-    params: {
-      action: { character: 'u' },
-      uppercased: { action: { character: 'U' } },
-      swipeUp: { action: { character: '7' }, text: '丿月' },
-      swipeDown: { text: '十o' },
-      longPress: [
-        { action: { character: 'U' } },
-      ],
-    },
-  },
-  iButton: {
-    name: 'iButton',
-    params: {
-      action: { character: 'i' },
-      uppercased: { action: { character: 'I' } },
-      swipeUp: { action: { character: '8' }, text: '丨亻' },
-      swipeDown: { text: '扌艹 钅' },
-      longPress: [
-        { action: { character: 'I' } },
-      ],
-    },
-  },
-  oButton: {
-    name: 'oButton',
-    params: {
-      action: { character: 'o' },
-      uppercased: { action: { character: 'O' } },
-      swipeUp: { action: { character: '9' }, text: '丶口' },
-      swipeDown: { text: '日i' },
-      longPress: [
-        { action: { character: 'O' } },
-      ],
-    },
-  },
-  pButton: {
-    name: 'pButton',
-    params: {
-      action: { character: 'p' },
-      uppercased: { action: { character: 'P' } },
-      swipeUp: { action: { character: '0' }, text: 'ang' },
-      longPress: [
-        { action: { character: 'P' } },
-      ],
-    },
-  },
+  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
+	local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
-  // 第二行字母键 (ASDF)
-  aButton: {
-    name: 'aButton',
-    params: {
-      action: { character: 'a' },
-      uppercased: { action: { character: 'A' } },
-      swipeUp: { text: '乛氵' },
-      swipeDown: { text: '贝o' },
-      longPress: [
-        { action: { character: 'A' } },
-      ],
-    },
-  },
-  sButton: {
-    name: 'sButton',
-    params: {
-      action: { character: 's' },
-      uppercased: { action: { character: 'S' } },
-      swipeUp: { text: 'a ia' },
-      longPress: [
-        { action: { character: 'S' } },
-      ],
-    },
-  },
-  dButton: {
-    name: 'dButton',
-    params: {
-      action: { character: 'd' },
-      uppercased: { action: { character: 'D' } },
-      swipeUp: { text: 'ie ou' },
-      longPress: [
-        { action: { character: 'D' } },
-      ],
-    },
-  },
-  fButton: {
-    name: 'fButton',
-    params: {
-      action: { character: 'f' },
-      uppercased: { action: { character: 'F' } },
-      swipeUp: { text: 'an' },
-      swipeDown: { text: 'ZH' },
-      longPress: [
-        { action: { character: 'F' } },
-      ],
-    },
-  },
-  gButton: {
-    name: 'gButton',
-    params: {
-      action: { character: 'g' },
-      uppercased: { action: { character: 'G' } },
-      swipeUp: { text: 'ing' },
-      swipeDown: { text: 'uai' },
-      longPress: [
-        { action: { character: 'G' } },
-      ],
-    },
-  },
-  hButton: {
-    name: 'hButton',
-    params: {
-      action: { character: 'h' },
-      uppercased: { action: { character: 'H' } },
-      swipeUp: { text: 'ai üe' },
-      longPress: [
-        { action: { character: 'H' } },
-      ],
-    },
-  },
-  jButton: {
-    name: 'jButton',
-    params: {
-      action: { character: 'j' },
-      uppercased: { action: { character: 'J' } },
-      swipeUp: { text: 'u er' },
-      swipeDown: { text: 'CH' },
-      longPress: [
-        { action: { character: 'J' } },
-      ],
-    },
-  },
-  kButton: {
-    name: 'kButton',
-    params: {
-      action: { character: 'k' },
-      uppercased: { action: { character: 'K' } },
-      swipeUp: { text: 'i' },
-      longPress: [
-        { action: { character: 'K' } },
-      ],
-    },
-  },
-  lButton: {
-    name: 'lButton',
-    params: {
-      action: { character: 'l' },
-      uppercased: { action: { character: 'L' } },
-      swipeUp: { text: 'o uo' },
-      swipeDown: { text: 'ü' },
-      longPress: [
-        { action: { character: 'L' } },
-      ],
-    },
-  },
+    local extraParams = {
+      insets: insets,
+    };
 
-  // 第三行字母键 (ZXCV)
-  zButton: {
-    name: 'zButton',
-    params: {
-      action: { character: 'z' },
-      uppercased: { action: { character: 'Z' } },
-      swipeUp: { text: 'ao' },
-      longPress: [
-        { action: { character: 'Z' } },
-      ],
-    },
-  },
-  xButton: {
-    name: 'xButton',
-    params: {
-      action: { character: 'x' },
-      uppercased: { action: { character: 'X' } },
-      swipeUp: { text: 'uang' },
-      swipeDown: { text: 'iang' },
-      longPress: [
-        { action: { character: 'X' } },
-      ],
-    },
-  },
-  cButton: {
-    name: 'cButton',
-    params: {
-      action: { character: 'c' },
-      uppercased: { action: { character: 'C' } },
-      swipeUp: { text: 'iao' },
-      longPress: [
-        { action: { character: 'C' } },
-      ],
-    },
-  },
-  vButton: {
-    name: 'vButton',
-    params: {
-      action: { character: 'v' },
-      uppercased: { action: { character: 'V' } },
-      swipeUp: { text: '一木' },
-      swipeDown: { text: '土o' },
-      longPress: [
-        { action: { character: 'V' } },
-      ],
-    },
-  },
-  bButton: {
-    name: 'bButton',
-    params: {
-      action: { character: 'b' },
-      uppercased: { action: { character: 'B' } },
-      swipeUp: { text: 'in ui' },
-      longPress: [
-        { action: { character: 'B' } },
-      ],
-    },
-  },
-  nButton: {
-    name: 'nButton',
-    params: {
-      action: { character: 'n' },
-      uppercased: { action: { character: 'N' } },
-      swipeUp: { text: 'en' },
-      longPress: [
-        { action: { character: 'N' } },
-      ],
-    },
-  },
-  mButton: {
-    name: 'mButton',
-    params: {
-      action: { character: 'm' },
-      uppercased: { action: { character: 'M' } },
-      swipeUp: { text: 'uang' },
-      swipeDown: { text: 'ian' },
-      longPress: [
-        { action: { character: 'M' } },
-      ],
-    },
-  },
-
-  letterButtons: [
-    self.qButton, self.wButton, self.eButton, self.rButton, self.tButton,
-    self.yButton, self.uButton, self.iButton, self.oButton, self.pButton,
-    self.aButton, self.sButton, self.dButton, self.fButton, self.gButton,
-    self.hButton, self.jButton, self.kButton, self.lButton,
-    self.zButton, self.xButton, self.cButton, self.vButton, self.bButton,
-    self.nButton, self.mButton,
-  ],
+    preedit.new(isDark)
+    + toolbar.new(isDark, isPortrait, if keyboardType == KeyboardType.Chinese then 'pinyin' else 'alphabetic')
+    + basicStyle.newKeyboardBackgroundStyle(isDark)
+    + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
+    + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
+    + basicStyle.newColorButtonBackgroundStyle(isDark, extraParams)
+    + basicStyle.newAlphabeticHintBackgroundStyle(isDark, { cornerRadius: 10 })
+    + basicStyle.newLongPressSymbolsBackgroundStyle(isDark, extraParams)
+    + basicStyle.newLongPressSymbolsSelectedBackgroundStyle(isDark, extraParams)
+    + basicStyle.newButtonAnimation()
+    + newKeyLayout(isDark, isPortrait, keyboardType)
+    // Notifications
+    + basicStyle.rimeSchemaChangedNotification
 }

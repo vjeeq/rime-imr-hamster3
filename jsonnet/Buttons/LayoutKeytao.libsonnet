@@ -28,8 +28,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'Q' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'q' }, text: 'iu ua' },
-        swipeDown: { action: { character: 'q' }, text: 'ZH' },
+        swipeUp: { text: 'iu ua' },
+        swipeDown: { text: 'ZH' },
       },
     },
   },
@@ -44,8 +44,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'W' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'w' }, text: 'ei un' },
-        swipeDown: { action: { character: 'w' }, text: 'CH' },
+        swipeUp: { text: 'ei un' },
+        swipeDown: { text: 'CH' },
       },
     },
   },
@@ -60,7 +60,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'E' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'e' }, text: 'sh e' },
+        swipeUp: { text: 'e' },
+        swipeDown: { text: 'SH' },
       },
     },
   },
@@ -74,7 +75,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'R' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'r' }, text: 'eng' },
+        swipeUp: { text: 'eng' },
       },
     },
   },
@@ -88,7 +89,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'T' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 't' }, text: 'uan' },
+        swipeUp: { text: 'uan' },
       },
     },
   },
@@ -102,8 +103,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'Y' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'y' }, text: 'ong' },
-        swipeDown: { action: { character: 'y' }, text: 'iong' },
+        swipeUp: { text: 'ong' },
+        swipeDown: { text: 'iong' },
       },
     },
   },
@@ -117,13 +118,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'U' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'u' }, text: '丿月' },
-        swipeDown: { action: { character: 'u' }, text: '十o' },
-      },
-      whenAlphabetic: {
-        longPress: [
-          { action: { character: 'U' } },
-        ],
+        swipeUp: { text: '丿月' },
+        swipeDown: { text: '十o' },
       },
     },
   },
@@ -137,8 +133,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'I' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'i' }, text: '丨亻' },
-        swipeDown: { action: { character: 'i' }, text: '扌艹 钅' },
+        swipeUp: { text: '丨亻' },
+        swipeDown: { text: '扌艹 钅' },
       },
     },
   },
@@ -152,8 +148,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'O' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'o' }, text: '丶口' },
-        swipeDown: { action: { character: 'o' }, text: '日i' },
+        swipeUp: { text: '丶口' },
+        swipeDown: { text: '日i' },
       },
     },
   },
@@ -167,7 +163,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'P' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'p' }, text: 'ang' },
+        swipeUp: { text: 'ang' },
       },
     },
   },
@@ -184,8 +180,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'A' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'a' }, text: '乛氵' },
-        swipeDown: { action: { character: 'a' }, text: '贝o' },
+        swipeUp: { text: '乛氵' },
+        swipeDown: { text: '贝o' },
       },
     },
   },
@@ -200,7 +196,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'S' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 's' }, text: 'a ia' },
+        swipeUp: { text: 'a ia' },
       },
     },
   },
@@ -215,7 +211,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'D' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'd' }, text: 'ie ou' },
+        swipeUp: { text: 'ie ou' },
       },
     },
   },
@@ -225,13 +221,13 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
       swipeUp: { action: { character: '<' } },
-      swipeDown: { action: { character: '> ZH' } },
+      swipeDown: { text: '> ZH' },
       longPress: [
         { action: { character: 'F' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'f' }, text: 'an' },
-        swipeDown: { action: { character: 'f' }, text: 'ZH' },
+        swipeUp: { text: 'an' },
+        swipeDown: { text: 'ZH' },
       },
     },
   },
@@ -246,8 +242,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'G' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'g' }, text: 'ing' },
-        swipeDown: { action: { character: 'g' }, text: 'uai' },
+        swipeUp: { text: 'ing' },
+        swipeDown: { text: 'uai' },
       },
     },
   },
@@ -262,7 +258,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'H' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'h' }, text: 'ai üe' },
+        swipeUp: { text: 'ai üe' },
       },
     },
   },
@@ -272,13 +268,13 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'j' },
       uppercased: { action: { character: 'J' } },
       swipeUp: { action: { character: '{' } },
-      swipeDown: { action: { character: '} CH' } },
+      swipeDown: { text: '} CH' },
       longPress: [
         { action: { character: 'J' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'j' }, text: 'u er' },
-        swipeDown: { action: { character: 'j' }, text: 'CH' },
+        swipeUp: { text: 'u er' },
+        swipeDown: { text: 'CH' },
       },
     },
   },
@@ -292,7 +288,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'K' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'k' }, text: 'i' },
+        swipeUp: { text: 'i' },
       },
     },
   },
@@ -306,8 +302,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'L' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'l' }, text: 'o uo' },
-        swipeDown: { action: { character: 'l' }, text: 'ü' },
+        swipeUp: { text: 'o uo' },
+        swipeDown: { text: 'ü' },
       },
     },
   },
@@ -323,7 +319,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'Z' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'z' }, text: 'ao' },
+        swipeUp: { text: 'ao' },
       },
     },
   },
@@ -338,8 +334,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'X' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'x' }, text: 'uang' },
-        swipeDown: { action: { character: 'x' }, text: 'iang' },
+        swipeUp: { text: 'uang' },
+        swipeDown: { text: 'iang' },
       },
     },
   },
@@ -354,12 +350,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'C' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'c' }, text: 'iao' },
-      },
-      whenAlphabetic: {
-        longPress: [
-          { action: { character: 'C' } },
-        ],
+        swipeUp: { text: 'iao' },
       },
     },
   },
@@ -374,8 +365,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'V' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'v' }, text: '一木' },
-        swipeDown: { action: { character: 'v' }, text: '土o' },
+        swipeUp: { text: '一木' },
+        swipeDown: { text: '土o' },
       },
     },
   },
@@ -390,7 +381,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'B' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'b' }, text: 'in ui' },
+        swipeUp: { text: 'in ui' },
       },
     },
   },
@@ -405,10 +396,7 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'N' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'n' }, text: 'en' },
-        longPress: [
-          { action: { character: 'N' } },
-        ],
+        swipeUp: { text: 'en' },
       },
     },
   },
@@ -423,8 +411,8 @@ local settings = import '../Settings.libsonnet';
         { action: { character: 'M' } },
       ],
       whenPreeditChanged: {
-        swipeUp: { action: { character: 'm' }, text: 'uang' },
-        swipeDown: { action: { character: 'm' }, text: 'ian' },
+        swipeUp: { text: 'uang' },
+        swipeDown: { text: 'ian' },
       },
     },
   },

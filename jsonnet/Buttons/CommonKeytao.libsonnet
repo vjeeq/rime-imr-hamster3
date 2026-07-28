@@ -266,6 +266,11 @@ local settings = import '../Settings.libsonnet';
         center: { y: 0.3 }
       },
 
+      swipeDown: {
+        action: { character: '~' },
+        text: '~',
+      },
+
       OnAlphabetic: {
         text: '.',
         action: { character: '.' }, 

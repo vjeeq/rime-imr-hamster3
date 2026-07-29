@@ -78,10 +78,10 @@ local keyboardLayout(keyboardType) = {
       HStack: {
         subviews: [
           { Cell: commonButtons.numericButton.name },
+          { Cell: getSwitchButton(keyboardType).name },
           { Cell: commonButtons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
           { Cell: commonButtons.semicolonButton.name },
-          { Cell: getSwitchButton(keyboardType).name },
           { Cell: commonButtons.enterButton.name },
         ],
       },
@@ -174,7 +174,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newSystemButton(
     commonButtons.numericButton.name,
     isDark,
-    { size: { width: '207.5/1125' } }
+    { size: { width: '130/1125' } }
     + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
   )
 

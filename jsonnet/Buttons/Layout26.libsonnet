@@ -90,7 +90,7 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'U' }, },
       ],
-      whenAlphabetic: {
+      OnAlphabetic: {
         longPress: [
           { action: { character: 'U' } },
         ],
@@ -273,7 +273,7 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'C' }, },
       ],
-      whenAlphabetic: {
+      OnAlphabetic: {
         longPress: [
           { action: { character: 'C' }, },
         ],

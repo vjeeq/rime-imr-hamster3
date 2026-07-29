@@ -287,7 +287,7 @@ local settings = import '../Settings.libsonnet';
       whenAlphabetic: {
         swipeUp: { action: { character: "'" }, text: "'" },
         swipeDown: { action: { character: "'" }, text: "" },
-      }
+      },
       longPress: [
         { action: { character: 'K' } },
       ],
@@ -304,9 +304,9 @@ local settings = import '../Settings.libsonnet';
       swipeUp: { action: { symbol: '“' } },
       swipeDown: { action: { symbol: '”' } },
       whenAlphabetic: {
-        swipeUp: { action: { character: '"' } },
-        swipeDown: { action: { character: '"' }, text: '"' },
-      }
+        swipeUp: { action: { character: '"' }, text: '"' },
+        swipeDown: { action: { character: '"' }, text: '' },
+      },
       longPress: [
         { action: { character: 'L' } },
       ],

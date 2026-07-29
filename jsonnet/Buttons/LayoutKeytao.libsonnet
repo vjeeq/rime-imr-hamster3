@@ -174,8 +174,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'a' },
       uppercased: { action: { character: 'A' } },
-      swipeUp: { action: { character: '+' } },
-      swipeDown: { action: { character: '=' } },
+      swipeUp: { action: { character: '~' } },
       longPress: [
         { action: { character: 'A' } },
       ],
@@ -190,8 +189,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 's' },
       uppercased: { action: { character: 'S' } },
-      swipeUp: { action: { character: '*' } },
-      swipeDown: { action: { character: '^' } },
+      swipeUp: { action: { character: '+' } },
+      swipeDown: { action: { character: '=' } },
       longPress: [
         { action: { character: 'S' } },
       ],
@@ -205,8 +204,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'd' },
       uppercased: { action: { character: 'D' } },
-      swipeUp: { action: { character: '"' } },
-      swipeDown: { action: { character: "'" } },
+      swipeUp: { action: { character: '*' } },
+      swipeDown: { action: { character: '^' } },
       longPress: [
         { action: { character: 'D' } },
       ],
@@ -283,7 +282,12 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'k' },
       uppercased: { action: { character: 'K' } },
-      swipeUp: { action: { character: ':' } },
+      swipeUp: { action: { symbol: '‘' } },
+      swipeDown: { action: { symbol: '’' } },
+      whenAlphabetic: {
+        swipeUp: { action: { character: "'" }, text: "'" },
+        swipeDown: { action: { character: "'" }, text: "" },
+      }
       longPress: [
         { action: { character: 'K' } },
       ],
@@ -297,7 +301,12 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'l' },
       uppercased: { action: { character: 'L' } },
-      swipeUp: { action: { character: ';' } },
+      swipeUp: { action: { symbol: '“' } },
+      swipeDown: { action: { symbol: '”' } },
+      whenAlphabetic: {
+        swipeUp: { action: { character: '"' } },
+        swipeDown: { action: { character: '"' }, text: '"' },
+      }
       longPress: [
         { action: { character: 'L' } },
       ],

@@ -80,6 +80,7 @@ local keyboardLayout(keyboardType) = {
           { Cell: commonButtons.numericButton.name },
           { Cell: commonButtons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
+          { Cell: commonButtons.semicolonButton.name },
           { Cell: getSwitchButton(keyboardType).name },
           { Cell: commonButtons.enterButton.name },
         ],
@@ -197,6 +198,12 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       isDark
     ),
     needHint=false,
+  )
+  + basicStyle.newAlphabeticButton(
+    commonButtons.semicolonButton.name,
+    isDark,
+    { size: { width: '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
   )
   + local switchButton = getSwitchButton(keyboardType);
     basicStyle.newSystemButton(

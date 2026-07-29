@@ -284,6 +284,18 @@ local settings = import '../Settings.libsonnet';
     },
   },
 
+  semicolonButton: {
+    name: 'semicolonButton',
+    params: {
+      action: { character: ';' },
+      text: ';',
+      swipeUp: {
+        action: { character: ':' },
+        text: ':',
+      },
+    },
+  },
+
   clearPreeditButton: {
     name: 'clearPreeditButton',
     params: {

@@ -220,7 +220,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
       swipeUp: { action: { character: '<' } },
-      swipeDown: { action: { character: '>', text: '> ZH' },
+      swipeDown: { action: { character: '>' }, text: '> ZH' },
       longPress: [
         { action: { character: 'F' } },
       ],
@@ -267,7 +267,7 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'j' },
       uppercased: { action: { character: 'J' } },
       swipeUp: { action: { character: '{' } },
-      swipeDown: { action: { character: '}', text: '} CH' },
+      swipeDown: { action: { character: '}' }, text: '} CH' },
       longPress: [
         { action: { character: 'J' } },
       ],

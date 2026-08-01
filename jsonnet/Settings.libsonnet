@@ -3,7 +3,7 @@
 #======================================
 {
   # 键盘布局:  9=九键  17=17键  26=全键  sigma=西戈  keytao=KeyTao
-  keyboardLayout: 'keytao',
+  keyboardLayout: 'KeyTao',
 
   # 数字键盘:  9=九宫格  row=横排  hex=十六进制
   numericLayout: '9',

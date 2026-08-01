@@ -283,11 +283,6 @@ local settings = import '../Settings.libsonnet';
     name: 'semicolonButton',
     params: {
       action: { character: ';' },
-      text: ';',
-      swipeUp: {
-        action: { character: ':' },
-        text: ':',
-      },
     },
   },
 

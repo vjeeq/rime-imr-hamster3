@@ -77,7 +77,6 @@ local keyboardLayout(keyboardType) = {
     {
       HStack: {
         subviews: [
-          { Cell: commonButtons.numericButton.name },
           { Cell: getSwitchButton(keyboardType).name },
           { Cell: commonButtons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
@@ -171,13 +170,6 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   )
 
   // Fourth Row
-  + basicStyle.newSystemButton(
-    commonButtons.numericButton.name,
-    isDark,
-    { size: { width: '130/1125' } }
-    + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
-  )
-
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
@@ -209,7 +201,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     basicStyle.newSystemButton(
     switchButton.name,
     isDark,
-    { size: { width: '130/1125' } }
+    { size: { width: '207.5/1125' } }
     + utils.processButtonParams(isAlphabetic, switchButton.params)
   )
   + basicStyle.newColorButton(

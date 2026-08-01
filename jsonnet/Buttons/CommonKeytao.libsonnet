@@ -222,10 +222,8 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { keyboardType: 'alphabetic' },
       assetImageName: 'chineseState2',
-      swipeUp: { action: { shortcut: '#方案切换' } },
-
-      [if !std.startsWith(settings.keyboardLayout, '26') then 'swipeDown']: {
-        action: { keyboardType: 'temp26Key' },
+      swipeUp: {
+        action: { keyboardType: 'numeric' },
       },
     },
   },
@@ -235,6 +233,9 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { keyboardType: 'pinyin' },
       assetImageName: 'englishState2',
+      swipeUp: {
+        action: { keyboardType: 'numeric' },
+      },
     },
   },
 

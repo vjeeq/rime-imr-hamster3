@@ -190,8 +190,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 's' },
       uppercased: { action: { character: 'S' } },
-      swipeUp: { action: { symbol: '‘' } },
-      swipeDown: { action: { symbol: '’' } },
+      swipeUp: { action: { character: "'" } },
       OnAlphabetic: {
         swipeUp: { action: { character: "'" }, text: "'" },
         swipeDown: { action: { character: "'" }, text: "" },

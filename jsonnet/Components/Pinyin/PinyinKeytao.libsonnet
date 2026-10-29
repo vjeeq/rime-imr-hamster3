@@ -201,7 +201,10 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     basicStyle.newSystemButton(
     switchButton.name,
     isDark,
-    { size: { width: '207.5/1125' } }
+    {
+      size: { width: '168.75/1125' },
+      bounds: { width: '151/168.75', alignment: 'left' },
+    }
     + utils.processButtonParams(isAlphabetic, switchButton.params)
   )
   + basicStyle.newColorButton(

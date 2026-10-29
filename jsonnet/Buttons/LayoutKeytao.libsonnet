@@ -23,14 +23,9 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'q' },
       uppercased: { action: { character: 'Q' } },
       swipeUp: { action: { character: '1' } },
-      swipeDown: { text: 'ZH' },
       longPress: [
         { action: { character: 'Q' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'iu ua' },
-        swipeDown: { text: 'ZH' },
-      },
     },
   },
   wButton: {
@@ -39,14 +34,9 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'w' },
       uppercased: { action: { character: 'W' } },
       swipeUp: { action: { character: '2' } },
-      swipeDown: { text: 'CH' },
       longPress: [
         { action: { character: 'W' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ei un' },
-        swipeDown: { text: 'CH' },
-      },
     },
   },
   eButton: {
@@ -55,14 +45,9 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'e' },
       uppercased: { action: { character: 'E' } },
       swipeUp: { action: { character: '3' } },
-      swipeDown: { text: 'SH' },
       longPress: [
         { action: { character: 'E' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'e' },
-        swipeDown: { text: 'SH' },
-      },
     },
   },
   rButton: {
@@ -74,9 +59,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'R' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'eng' },
-      },
     },
   },
   tButton: {
@@ -88,9 +70,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'T' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'uan' },
-      },
     },
   },
   yButton: {
@@ -102,10 +81,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'Y' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ong' },
-        swipeDown: { text: 'iong' },
-      },
     },
   },
   uButton: {
@@ -117,10 +92,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'U' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: '丿月' },
-        swipeDown: { text: '十o' },
-      },
     },
   },
   iButton: {
@@ -132,10 +103,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'I' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: '丨亻' },
-        swipeDown: { text: '扌艹 钅' },
-      },
     },
   },
   oButton: {
@@ -147,10 +114,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'O' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: '丶口' },
-        swipeDown: { text: '日i' },
-      },
     },
   },
   pButton: {
@@ -162,9 +125,6 @@ local settings = import '../Settings.libsonnet';
       longPress: [
         { action: { character: 'P' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ang' },
-      },
     },
   },
 
@@ -175,14 +135,13 @@ local settings = import '../Settings.libsonnet';
       action: { character: 'a' },
       uppercased: { action: { character: 'A' } },
       swipeUp: { action: { character: '~' } },
-      swipeDown: { action: { character: '`' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '~' } },
+        swipeDown: { action: { character: '`' } },
+      },
       longPress: [
         { action: { character: 'A' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: '乛氵' },
-        swipeDown: { text: '贝o' },
-      },
     },
   },
   sButton: {
@@ -190,17 +149,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 's' },
       uppercased: { action: { character: 'S' } },
-      swipeUp: { action: { character: "'" } },
+      swipeUp: { action: { character: "‘" }, text: "‘ " },
+      swipeDown: { action: { character: "’" }, text: " ’" },
       OnAlphabetic: {
-        swipeUp: { action: { character: "'" }, text: "'" },
-        swipeDown: { action: { character: "'" }, text: "" },
+        swipeUp: { action: { character: "'" }, text: "'" }, 
+        swipeDown: null,
       },
       longPress: [
         { action: { character: 'S' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'a ia' },
-      },
     },
   },
   dButton: {
@@ -208,18 +165,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'd' },
       uppercased: { action: { character: 'D' } },
-      swipeUp: { action: { symbol: '“' } },
-      swipeDown: { action: { symbol: '”' } },
+      swipeUp: { action: { character: '“' } },
+      swipeDown: { action: { character: '”' } },
       OnAlphabetic: {
         swipeUp: { action: { character: '"' }, text: '"' },
-        swipeDown: { action: { character: '"' }, text: '' },
+        swipeDown: null,
       },
       longPress: [
         { action: { character: 'D' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ie ou' },
-      },
     },
   },
   fButton: {
@@ -227,15 +181,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
-      swipeUp: { action: { character: '<' } },
-      swipeDown: { action: { character: '>' }, text: '> ZH' },
+      swipeUp: { action: { character: '《' } },
+      swipeDown: { action: { character: '》' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '<' } },
+        swipeDown: { action: { character: '>' } },
+      },
       longPress: [
         { action: { character: 'F' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'an' },
-        swipeDown: { text: 'ZH' },
-      },
     },
   },
   gButton: {
@@ -243,15 +197,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'g' },
       uppercased: { action: { character: 'G' } },
-      swipeUp: { action: { character: '(' } },
-      swipeDown: { action: { character: ')' } },
+      swipeUp: { action: { character: '（' }, text: '(' },
+      swipeDown: { action: { character: '）' }, text: ')' },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '(' } },
+        swipeDown: { action: { character: ')' } },
+      },
       longPress: [
         { action: { character: 'G' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ing' },
-        swipeDown: { text: 'uai' },
-      },
     },
   },
   hButton: {
@@ -259,14 +213,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'h' },
       uppercased: { action: { character: 'H' } },
-      swipeUp: { action: { character: '[' } },
-      swipeDown: { action: { character: ']' } },
+      swipeUp: { action: { character: '【' } },
+      swipeDown: { action: { character: '】' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '[' } },
+        swipeDown: { action: { character: ']' } },
+      },
       longPress: [
         { action: { character: 'H' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ai üe' },
-      },
     },
   },
   jButton: {
@@ -274,15 +229,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'j' },
       uppercased: { action: { character: 'J' } },
-      swipeUp: { action: { character: '{' } },
-      swipeDown: { action: { character: '}' }, text: '} CH' },
+      swipeUp: { action: { character: '「' } },
+      swipeDown: { action: { character: '」' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '{' } },
+        swipeDown: { action: { character: '}' } },
+      },
       longPress: [
         { action: { character: 'J' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'u er' },
-        swipeDown: { text: 'CH' },
-      },
     },
   },
   kButton: {
@@ -290,14 +245,14 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'k' },
       uppercased: { action: { character: 'K' } },
-      swipeUp: { action: { character: ':'} },
-      swipeDown: { action: { character: '#' } },
+      swipeUp: { action: { character: '：' }, text: ':' },
+      OnAlphabetic: {
+        swipeUp: { action: { character: ':'} },
+        swipeDown: { action: { character: '#' } },
+      },
       longPress: [
         { action: { character: 'K' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'i' },
-      },
     },
   },
   lButton: {
@@ -305,15 +260,14 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'l' },
       uppercased: { action: { character: 'L' } },
-      swipeUp: { action: { symbol: '；' } },
-      swipeDown: { action: { character: '$' } },
+      swipeUp: { action: { character: '；' }, text: ';' },
+      OnAlphabetic: {
+        swipeUp: { action: { character: ';' } },
+        swipeDown: { action: { character: '$' } },
+      },
       longPress: [
         { action: { character: 'L' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'o uo' },
-        swipeDown: { text: 'ü' },
-      },
     },
   },
 
@@ -323,14 +277,14 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'z' },
       uppercased: { action: { character: 'Z' } },
-      swipeUp: { action: { character: '\\' } },
-      swipeDown: { action: { character: '|' } },
+      swipeUp: { action: { character: '/' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '/' } },
+        swipeDown: { action: { character: '|' } },
+      },
       longPress: [
         { action: { character: 'Z' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'ao' },
-      },
     },
   },
   xButton: {
@@ -338,15 +292,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'x' },
       uppercased: { action: { character: 'X' } },
-      swipeUp: { action: { character: '/' } },
+      swipeUp: { action: { character: '、' } },
       swipeDown: { action: { character: '*' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '\\' } },
+        swipeDown: { action: { character: '*' } },
+      },
       longPress: [
         { action: { character: 'X' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'uang' },
-        swipeDown: { text: 'iang' },
-      },
     },
   },
   cButton: {
@@ -356,12 +310,13 @@ local settings = import '../Settings.libsonnet';
       uppercased: { action: { character: 'C' } },
       swipeUp: { action: { character: '-' } },
       swipeDown: { action: { character: '+' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '-' } },
+        swipeDown: { action: { character: '+' } },
+      },
       longPress: [
         { action: { character: 'C' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'iao' },
-      },
     },
   },
   vButton: {
@@ -369,15 +324,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'v' },
       uppercased: { action: { character: 'V' } },
-      swipeUp: { action: { character: '_' } },
+      swipeUp: { action: { character: '——' } },
       swipeDown: { action: { character: '=' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '_' } },
+        swipeDown: { action: { character: '=' } },
+      },
       longPress: [
         { action: { character: 'V' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: '一木' },
-        swipeDown: { text: '土o' },
-      },
     },
   },
   bButton: {
@@ -385,14 +340,14 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'b' },
       uppercased: { action: { character: 'B' } },
-      swipeUp: { action: { character: '^' } },
-      swipeDown: { action: { character: '&' } },
+      swipeUp: { action: { character: '…' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '^' } },
+        swipeDown: { action: { character: '&' } },
+      },
       longPress: [
         { action: { character: 'B' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'in ui' },
-      },
     },
   },
   nButton: {
@@ -400,14 +355,14 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'n' },
       uppercased: { action: { character: 'N' } },
-      swipeUp: { action: { character: '!' } },
-      swipeDown: { action: { character: '@' } },
+      swipeUp: { action: { character: '！' }, text: '!' },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '!' } },
+        swipeDown: { action: { character: '@' } },
+      },
       longPress: [
         { action: { character: 'N' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'en' },
-      },
     },
   },
   mButton: {
@@ -415,15 +370,15 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'm' },
       uppercased: { action: { character: 'M' } },
-      swipeUp: { action: { character: '?' } },
+      swipeUp: { action: { character: '？' }, text: '?' },
       swipeDown: { action: { character: '%' } },
+      OnAlphabetic: {
+        swipeUp: { action: { character: '?' } },
+        swipeDown: { action: { character: '%' } },
+      },
       longPress: [
         { action: { character: 'M' } },
       ],
-      whenPreeditChanged: {
-        swipeUp: { text: 'uang' },
-        swipeDown: { text: 'ian' },
-      },
     },
   },
 

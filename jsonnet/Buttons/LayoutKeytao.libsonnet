@@ -88,6 +88,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'u' },
       uppercased: { action: { character: 'U' } },
+      backgroundStyleName: 'keytaoSoftBackgroundStyle',
       swipeUp: { action: { character: '7' } },
       longPress: [
         { action: { character: 'U' } },
@@ -99,6 +100,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'i' },
       uppercased: { action: { character: 'I' } },
+      backgroundStyleName: 'keytaoSoftBackgroundStyle',
       swipeUp: { action: { character: '8' } },
       longPress: [
         { action: { character: 'I' } },
@@ -110,6 +112,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'o' },
       uppercased: { action: { character: 'O' } },
+      backgroundStyleName: 'keytaoSoftBackgroundStyle',
       swipeUp: { action: { character: '9' } },
       longPress: [
         { action: { character: 'O' } },
@@ -134,6 +137,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'a' },
       uppercased: { action: { character: 'A' } },
+      backgroundStyleName: 'keytaoSoftBackgroundStyle',
       swipeUp: { action: { character: '~' } },
       OnAlphabetic: {
         swipeUp: { action: { character: '~' } },
@@ -324,6 +328,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'v' },
       uppercased: { action: { character: 'V' } },
+      backgroundStyleName: 'keytaoSoftBackgroundStyle',
       swipeUp: { action: { character: '——' } },
       swipeDown: { action: { character: '=' } },
       OnAlphabetic: {

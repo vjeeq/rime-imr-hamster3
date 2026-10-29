@@ -225,6 +225,10 @@ local settings = import '../Settings.libsonnet';
       swipeUp: {
         action: { keyboardType: 'numeric' },
       },
+      whenPreeditChanged: {
+        action: 'enter',
+        swipeUp: { action: 'enter' },
+      },
     },
   },
 
@@ -235,6 +239,10 @@ local settings = import '../Settings.libsonnet';
       assetImageName: 'englishState2',
       swipeUp: {
         action: { keyboardType: 'numeric' },
+      },
+      whenPreeditChanged: {
+        action: 'enter',
+        swipeUp: { action: 'enter' },
       },
     },
   },

@@ -2,6 +2,7 @@ local buttons = import '../../Buttons/LayoutKeytao.libsonnet';
 local commonButtons = import '../../Buttons/CommonKeytao.libsonnet';
 local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
 local settings = import '../../Settings.libsonnet';
+local colors = import '../../Constants/Colors.libsonnet';
 local basicStyle = import '../../Styles/BasicStyle.libsonnet';
 local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
@@ -194,7 +195,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newAlphabeticButton(
     commonButtons.semicolonButton.name,
     isDark,
-    { size: { width: '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
+    { size: { width: '125/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
   + local switchButton = getSwitchButton(keyboardType);
@@ -237,6 +238,16 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + basicStyle.newLongPressSymbolsBackgroundStyle(isDark, extraParams)
     + basicStyle.newLongPressSymbolsSelectedBackgroundStyle(isDark, extraParams)
     + basicStyle.newButtonAnimation()
+    + {
+        keytaoSoftBackgroundStyle: utils.newGeometryStyle({
+          insets: insets,
+          normalColor: { light: '#2E67F81A', dark: '#2E67F82E' },
+          highlightColor: { light: '#2E67F82E', dark: '#2E67F84D' },
+          cornerRadius: 8.5,
+          normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
+          highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,
+        }, isDark),
+      }
     + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification

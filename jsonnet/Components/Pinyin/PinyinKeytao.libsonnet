@@ -241,8 +241,8 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + {
         keytaoSoftBackgroundStyle: utils.newGeometryStyle({
           insets: insets,
-          normalColor: { light: '#DFF3DA', dark: '#3A5535' },
-          highlightColor: { light: '#CCE9C5', dark: '#4A6B44' },
+          normalColor: { light: '#D2EDCB', dark: '#3A5535' },
+          highlightColor: { light: '#BFE2B7', dark: '#4A6B44' },
           cornerRadius: 8.5,
           normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
           highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,

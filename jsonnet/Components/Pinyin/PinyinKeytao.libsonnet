@@ -195,7 +195,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   + basicStyle.newAlphabeticButton(
     commonButtons.semicolonButton.name,
     isDark,
-    { size: { width: '125/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
+    { size: { width: '168.75/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
   + local switchButton = getSwitchButton(keyboardType);
@@ -241,8 +241,8 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + {
         keytaoSoftBackgroundStyle: utils.newGeometryStyle({
           insets: insets,
-          normalColor: { light: '#2E67F81A', dark: '#2E67F82E' },
-          highlightColor: { light: '#2E67F82E', dark: '#2E67F84D' },
+          normalColor: { light: '#50A5451A', dark: '#50A5452E' },
+          highlightColor: { light: '#50A5452E', dark: '#50A5454D' },
           cornerRadius: 8.5,
           normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
           highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,

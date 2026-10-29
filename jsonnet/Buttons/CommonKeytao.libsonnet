@@ -226,8 +226,8 @@ local settings = import '../Settings.libsonnet';
         action: { keyboardType: 'numeric' },
       },
       whenPreeditChanged: {
-        action: 'enter',
-        swipeUp: { action: 'enter' },
+        action: { combine: [ 'enter', { keyboardType: 'alphabetic' } ] },
+        swipeUp: { action: { combine: [ 'enter', { keyboardType: 'numeric' } ] } },
       },
     },
   },
@@ -241,8 +241,8 @@ local settings = import '../Settings.libsonnet';
         action: { keyboardType: 'numeric' },
       },
       whenPreeditChanged: {
-        action: 'enter',
-        swipeUp: { action: 'enter' },
+        action: { combine: [ 'enter', { keyboardType: 'pinyin' } ] },
+        swipeUp: { action: { combine: [ 'enter', { keyboardType: 'numeric' } ] } },
       },
     },
   },

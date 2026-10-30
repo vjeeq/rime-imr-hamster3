@@ -111,8 +111,6 @@ local newAlphabeticButtonBackgroundStyle(isDark=false, params={}) =
     normalColor: colors.standardButtonBackgroundColor,
     highlightColor: colors.standardButtonHighlightedBackgroundColor,
     cornerRadius: buttonCornerRadius,
-    normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
-    highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,
   } + params, isDark),
 };
 
@@ -263,8 +261,6 @@ local newSystemButtonBackgroundStyle(isDark=false, params={}) =
     normalColor: colors.systemButtonBackgroundColor,
     highlightColor: colors.systemButtonHighlightedBackgroundColor,
     cornerRadius: buttonCornerRadius,
-    normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
-    highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,
   } + params, isDark),
 };
 
@@ -297,8 +293,6 @@ local newColorButtonBackgroundStyle(isDark=false, params={}) =
     normalColor: colors.colorButtonBackgroundColor,
     highlightColor: colors.colorButtonHighlightedBackgroundColor,
     cornerRadius: buttonCornerRadius,
-    normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
-    highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,
   } + params, isDark),
 };
 

@@ -2,7 +2,6 @@ local buttons = import '../../Buttons/LayoutKeytao.libsonnet';
 local commonButtons = import '../../Buttons/CommonKeytao.libsonnet';
 local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
 local settings = import '../../Settings.libsonnet';
-local colors = import '../../Constants/Colors.libsonnet';
 local basicStyle = import '../../Styles/BasicStyle.libsonnet';
 local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
@@ -241,11 +240,9 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + {
         keytaoSoftBackgroundStyle: utils.newGeometryStyle({
           insets: insets,
-          normalColor: { light: '#D2EDCB', dark: '#3A5535' },
-          highlightColor: { light: '#BFE2B7', dark: '#4A6B44' },
+          normalColor: { light: '#E0E5F4', dark: '#424E6A' },
+          highlightColor: { light: '#D1D8EC', dark: '#556285' },
           cornerRadius: 8.5,
-          normalLowerEdgeColor: colors.lowerEdgeOfButtonNormalColor,
-          highlightLowerEdgeColor: colors.lowerEdgeOfButtonHighlightColor,
         }, isDark),
       }
     + newKeyLayout(isDark, isPortrait, keyboardType)

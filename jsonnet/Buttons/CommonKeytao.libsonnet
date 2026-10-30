@@ -237,7 +237,7 @@ local settings = import '../Settings.libsonnet';
       },
       longPress: [
         {
-          action: { shortcut: '#简繁切换' },
+          action: { sendKeys: 'Control+Shift+4' },
           text: 'rimeOptionLabelAbbreviated$traditionalization',
           fontSize: 16,
         },
@@ -265,7 +265,7 @@ local settings = import '../Settings.libsonnet';
       },
       longPress: [
         {
-          action: { shortcut: '#简繁切换' },
+          action: { sendKeys: 'Control+Shift+4' },
           text: 'rimeOptionLabelAbbreviated$traditionalization',
           fontSize: 16,
         },

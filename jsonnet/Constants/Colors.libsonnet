@@ -33,8 +33,8 @@ local separatorColor = {
 
 // 键盘背景色
 local keyboardBackgroundColor = {
-  light: '#D1D3D9',
-  dark: '#1C1C1E',
+  light: '#ffffff03',
+  dark: '#00000003',
 };
 
 // 标准按键背景色（如字母按键、空格键等）

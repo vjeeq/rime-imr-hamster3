@@ -268,21 +268,25 @@ local settings = import '../Settings.libsonnet';
       action: { character: ',', },
       text: '，',
       center: { y: 0.52 },
+      insets: { left: 6.62, right: -6.62 },
 
       swipeUp: {
         action: { character: '.' },
         text: '。',
-        center: { y: 0.3 }
+        center: { y: 0.3 },
+        insets: { left: 2.736, right: -2.736 },
       },
 
       OnAlphabetic: {
         text: '.',
         action: { character: '.' }, 
         center: { y: 0.48 },
+        insets: { left: 0, right: 0 },
         swipeUp: { 
           text: ',',
           action: { character: ',' },
-          center: { y: 0.28 }
+          center: { y: 0.28 },
+          insets: { left: 0, right: 0 },
         },
       },
     },
@@ -292,6 +296,9 @@ local settings = import '../Settings.libsonnet';
     name: 'semicolonButton',
     params: {
       action: { character: ';' },
+      longPress: [
+        { action: { symbol: "'" } },
+      ],
     },
   },
 

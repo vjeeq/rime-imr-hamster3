@@ -297,7 +297,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: ';' },
       longPress: [
-        { action: { symbol: "'" } },
+        { action: { character: "'" } },
       ],
     },
   },

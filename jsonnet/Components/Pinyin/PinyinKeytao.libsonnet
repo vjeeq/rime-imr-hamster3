@@ -2,6 +2,8 @@ local buttons = import '../../Buttons/LayoutKeytao.libsonnet';
 local commonButtons = import '../../Buttons/CommonKeytao.libsonnet';
 local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
 local settings = import '../../Settings.libsonnet';
+local colors = import '../../Constants/Colors.libsonnet';
+local fonts = import '../../Constants/Fonts.libsonnet';
 local basicStyle = import '../../Styles/BasicStyle.libsonnet';
 local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
@@ -238,6 +240,20 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
           normalColor: { light: '#D4F4CA', dark: '#33612B' },
           highlightColor: { light: '#BDEAB3', dark: '#407737' },
           cornerRadius: 8.5,
+        }, isDark),
+      }
+    + {
+        alphabeticButtonSimplifiedStyle: utils.newTextStyle({
+          text: '简/En',
+          fontSize: fonts.systemButtonTextFontSize,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        alphabeticButtonTraditionalStyle: utils.newTextStyle({
+          text: '繁/En',
+          fontSize: fonts.systemButtonTextFontSize,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
         }, isDark),
       }
     + newKeyLayout(isDark, isPortrait, keyboardType)

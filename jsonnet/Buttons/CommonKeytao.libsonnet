@@ -221,7 +221,12 @@ local settings = import '../Settings.libsonnet';
     name: 'alphabeticButton',
     params: {
       action: { keyboardType: 'alphabetic' },
-      assetImageName: 'chineseState2',
+      text: '简/En',
+      foregroundStyleName: [
+        { styleName: 'alphabeticButtonSimplifiedStyle', conditionKey: 'rime$simplification', conditionValue: false },
+        { styleName: 'alphabeticButtonTraditionalStyle', conditionKey: 'rime$simplification', conditionValue: true },
+      ],
+      foregroundStyle: {},
       swipeUp: {
         action: { keyboardType: 'numeric' },
       },
@@ -229,6 +234,9 @@ local settings = import '../Settings.libsonnet';
         action: { combine: [ 'enter', { keyboardType: 'alphabetic' } ] },
         swipeUp: { action: { combine: [ 'enter', { keyboardType: 'numeric' } ] } },
       },
+      longPress: [
+        { action: { shortcut: '#简繁切换' }, text: '简繁' },
+      ],
     },
   },
 

@@ -223,10 +223,11 @@ local settings = import '../Settings.libsonnet';
       action: { keyboardType: 'alphabetic' },
       text: '简/En',
       foregroundStyleName: [
-        { styleName: 'alphabeticButtonSimplifiedStyle', conditionKey: 'rime$simplification', conditionValue: false },
-        { styleName: 'alphabeticButtonTraditionalStyle', conditionKey: 'rime$simplification', conditionValue: true },
+        { styleName: 'alphabeticButtonSimplifiedStyle', conditionKey: 'rime$traditionalization', conditionValue: false },
+        { styleName: 'alphabeticButtonTraditionalStyle', conditionKey: 'rime$traditionalization', conditionValue: true },
       ],
       foregroundStyle: {},
+      notification: ['alphabeticButtonTraditionalNotification'],
       swipeUp: {
         action: { keyboardType: 'numeric' },
       },
@@ -235,7 +236,11 @@ local settings = import '../Settings.libsonnet';
         swipeUp: { action: { combine: [ 'enter', { keyboardType: 'numeric' } ] } },
       },
       longPress: [
-        { action: { shortcut: '#简繁切换' }, text: '简繁' },
+        {
+          action: { shortcut: '#简繁切换' },
+          text: 'rimeOptionLabelAbbreviated$traditionalization',
+          fontSize: 16,
+        },
       ],
     },
   },
@@ -244,7 +249,13 @@ local settings = import '../Settings.libsonnet';
     name: 'pinyinButton',
     params: {
       action: { keyboardType: 'pinyin' },
-      assetImageName: 'englishState2',
+      text: 'En/简',
+      foregroundStyleName: [
+        { styleName: 'pinyinButtonSimplifiedStyle', conditionKey: 'rime$traditionalization', conditionValue: false },
+        { styleName: 'pinyinButtonTraditionalStyle', conditionKey: 'rime$traditionalization', conditionValue: true },
+      ],
+      foregroundStyle: {},
+      notification: ['pinyinButtonTraditionalNotification'],
       swipeUp: {
         action: { keyboardType: 'numeric' },
       },
@@ -252,6 +263,13 @@ local settings = import '../Settings.libsonnet';
         action: { combine: [ 'enter', { keyboardType: 'pinyin' } ] },
         swipeUp: { action: { combine: [ 'enter', { keyboardType: 'numeric' } ] } },
       },
+      longPress: [
+        {
+          action: { shortcut: '#简繁切换' },
+          text: 'rimeOptionLabelAbbreviated$traditionalization',
+          fontSize: 16,
+        },
+      ],
     },
   },
 

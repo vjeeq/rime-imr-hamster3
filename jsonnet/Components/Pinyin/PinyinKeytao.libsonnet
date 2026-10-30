@@ -3,7 +3,6 @@ local commonButtons = import '../../Buttons/CommonKeytao.libsonnet';
 local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
 local settings = import '../../Settings.libsonnet';
 local colors = import '../../Constants/Colors.libsonnet';
-local fonts = import '../../Constants/Fonts.libsonnet';
 local basicStyle = import '../../Styles/BasicStyle.libsonnet';
 local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
@@ -245,18 +244,61 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + {
         alphabeticButtonSimplifiedStyle: utils.newTextStyle({
           text: '简/En',
-          fontSize: fonts.systemButtonTextFontSize,
+          fontSize: 14,
           normalColor: colors.systemButtonForegroundColor,
           highlightColor: colors.systemButtonHighlightedForegroundColor,
         }, isDark),
         alphabeticButtonTraditionalStyle: utils.newTextStyle({
           text: '繁/En',
-          fontSize: fonts.systemButtonTextFontSize,
+          fontSize: 14,
           normalColor: colors.systemButtonForegroundColor,
           highlightColor: colors.systemButtonHighlightedForegroundColor,
         }, isDark),
+        pinyinButtonSimplifiedStyle: utils.newTextStyle({
+          text: 'En/简',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        pinyinButtonTraditionalStyle: utils.newTextStyle({
+          text: 'En/繁',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        alphabeticButtonTraditionalNotification: {
+          notificationType: 'rime',
+          rimeNotificationType: 'optionChanged',
+          rimeOptionName: 'traditionalization',
+          rimeOptionValue: true,
+          backgroundStyle: 'systemButtonBackgroundStyle',
+          foregroundStyle: 'alphabeticButtonTraditionalStyle',
+        },
+        pinyinButtonTraditionalNotification: {
+          notificationType: 'rime',
+          rimeNotificationType: 'optionChanged',
+          rimeOptionName: 'traditionalization',
+          rimeOptionValue: true,
+          backgroundStyle: 'systemButtonBackgroundStyle',
+          foregroundStyle: 'pinyinButtonTraditionalStyle',
+        },
       }
     + newKeyLayout(isDark, isPortrait, keyboardType)
+    + {
+        // preedit 通知会整体替换前景样式，这里让它也按繁简状态选择，避免输入中显示回「简/En」
+        alphabeticButtonPreeditChangedNotification+: {
+          foregroundStyle: [
+            { conditionKey: 'rime$traditionalization', conditionValue: false, styleName: 'alphabeticButtonSimplifiedStyle' },
+            { conditionKey: 'rime$traditionalization', conditionValue: true, styleName: 'alphabeticButtonTraditionalStyle' },
+          ],
+        },
+        pinyinButtonPreeditChangedNotification+: {
+          foregroundStyle: [
+            { conditionKey: 'rime$traditionalization', conditionValue: false, styleName: 'pinyinButtonSimplifiedStyle' },
+            { conditionKey: 'rime$traditionalization', conditionValue: true, styleName: 'pinyinButtonTraditionalStyle' },
+          ],
+        },
+      }
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
 }

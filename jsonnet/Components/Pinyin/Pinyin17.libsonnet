@@ -120,7 +120,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
 ;
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
@@ -128,7 +128,7 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, 'pinyin')
+    + toolbar.new(isDark, isPortrait, 'pinyin', showGlobe=std.get(options, 'showGlobe', false))
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -140,4 +140,5 @@ local newKeyLayout(isDark=false, isPortrait=true) =
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
+    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
 }

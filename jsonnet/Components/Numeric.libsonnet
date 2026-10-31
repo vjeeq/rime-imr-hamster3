@@ -4,11 +4,11 @@ local numericRow = import './Numeric/NumericRow.libsonnet';
 local numericHex = import './Numeric/NumericHex.libsonnet';
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     if settings.numericLayout == 'row' then
-      numericRow.new(isDark, isPortrait, numericRow.KeyboardType.Chinese)
+      numericRow.new(isDark, isPortrait, numericRow.KeyboardType.Chinese, options)
     else if settings.numericLayout == 'hex' then
-      numericHex.new(isDark, isPortrait)
+      numericHex.new(isDark, isPortrait, options)
     else
-      numeric9.new(isDark, isPortrait)
+      numeric9.new(isDark, isPortrait, options)
 }

@@ -198,7 +198,7 @@ else
 };
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     local insets = if isPortrait then backgroundInsets.portrait else backgroundInsets.landscape;
 
     local extraParams = {
@@ -206,7 +206,7 @@ else
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, 'pinyin')
+    + toolbar.new(isDark, isPortrait, 'pinyin', showGlobe=std.get(options, 'showGlobe', false))
     + firstRowStyle.style
     + secondRowStyle.style
     + thirdRowStyle.style
@@ -222,4 +222,5 @@ else
     + newKeyLayout(isDark, isPortrait)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
+    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
 }

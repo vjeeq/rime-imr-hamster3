@@ -221,7 +221,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   // keyboardType=Temp26Key 表示这个26键布局是临时使用的，比如当前是拼音17键布局，但是想使用雾凇方案中的 V 模式
   // 只在非26键布局下额外生成一个26键布局，action 使用 character，把动作发给 Rime 处理
   // 和主键盘的区别在于"中英切换键"改为"返回"键
-  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
+  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese, options={}):
 	local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
@@ -229,7 +229,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, if keyboardType == KeyboardType.Chinese then 'pinyin' else 'alphabetic')
+    + toolbar.new(isDark, isPortrait, if keyboardType == KeyboardType.Chinese then 'pinyin' else 'alphabetic', showGlobe=std.get(options, 'showGlobe', false))
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -241,4 +241,5 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
+    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
 }

@@ -3,9 +3,9 @@ local layout26 = import './Pinyin/Pinyin26.libsonnet';
 local layoutKeytao = import './Pinyin/PinyinKeytao.libsonnet';
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     if settings.keyboardLayout == 'keytao' then
-      layoutKeytao.new(isDark, isPortrait, layoutKeytao.KeyboardType.English)
+      layoutKeytao.new(isDark, isPortrait, layoutKeytao.KeyboardType.English, options)
     else
-      layout26.new(isDark, isPortrait, layout26.KeyboardType.English),
+      layout26.new(isDark, isPortrait, layout26.KeyboardType.English, options),
 }

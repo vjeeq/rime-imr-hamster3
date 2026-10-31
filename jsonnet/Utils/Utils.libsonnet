@@ -257,6 +257,32 @@ local processButtonParams(isAlphabetic, params) =
   else
     params;
 
+// 按设备 / 方向取键盘高度
+local keyboardHeightFor(settings, isPad=false, isPortrait=true) =
+  if isPad then
+    (if isPortrait then settings.keyboardHeight.padPortrait else settings.keyboardHeight.padLandscape)
+  else
+    (if isPortrait then settings.keyboardHeight.phonePortrait else settings.keyboardHeight.phoneLandscape);
+
+// 递归替换 params 中的 keyboardType（只替换 from -> to）
+local replaceKeyboardTypeRecursive(params, from, to) =
+  if std.isObject(params) then
+    std.foldl(
+      function(acc, key)
+        acc + (
+          if key == 'keyboardType' && params[key] == from then
+            { keyboardType: to }
+          else
+            { [key]: replaceKeyboardTypeRecursive(params[key], from, to) }
+        ),
+      std.objectFields(params),
+      {},
+    )
+  else if std.isArray(params) then
+    std.map(function(item) replaceKeyboardTypeRecursive(item, from, to), params)
+  else
+    params;
+
 local capitalize(s) =
   if std.length(s) == 0 then s
   else std.asciiUpper(s[0:1]) + s[1:];
@@ -276,6 +302,8 @@ local capitalize(s) =
   newForegroundStyle: newForegroundStyle,
   newAnimation: newAnimation,
   replaceCharacterToSymbolRecursive: replaceCharacterToSymbolRecursive,
+  replaceKeyboardTypeRecursive: replaceKeyboardTypeRecursive,
+  keyboardHeightFor: keyboardHeightFor,
   calcMainTextCenter: calcMainTextCenter,
   numericActionNeedSymbol: numericActionNeedSymbol,
   normalizeCenter: normalizeCenter,

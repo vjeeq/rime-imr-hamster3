@@ -14,8 +14,35 @@
   # 打字时空格键显示的文字（仅 26/17/sigma 布局有效）
   spaceButtonComposingText: '选定',
 
-  # iPad 模式 (true=是  false=否)
+  # iPad 模式（影响内边距、数字键长按；键盘高度现在由 keyboardHeight 控制）
   iPad: false,
+
+  # 键盘高度（不含预编辑区和工具栏）
+  keyboardHeight: {
+    phonePortrait: 216,
+    phoneLandscape: 160,
+    padPortrait: 216,
+    padLandscape: 240,  # iPad 横屏比手机横屏高 50%
+  },
+
+  # 分屏键盘（左右手分开，横屏时中间留空）
+  # iPhone / iPad 横屏是否分屏
+  splitPhoneLandscape: true,
+  splitPadLandscape: true,
+  # iPad 竖屏是否也分屏
+  splitPadPortrait: true,
+
+  # 分屏中间空隙占整个键盘宽度的比例（左右各占剩下的半边）
+  splitGapPercent: {
+    phonePortrait: 0.12,  # 手机竖屏不分屏，占位
+    phoneLandscape: 0.12,
+    padPortrait: 0.12,
+    padLandscape: 0.35,
+  },
+
+  # iPad 工具栏是否显示地球键（切换输入法）
+  # iPhone 下面有系统自带的地球键，所以不需要
+  showNextKeyboardOnPad: true,
 
   # 方案名显示位置：{ x: 0~1, y: 0~1 }，null=不显示
   spaceButtonSchemaNameCenter: { x: 0.5, y: 0.7 },  # 水平居中，靠下
@@ -26,28 +53,10 @@
   swipeDownTextCenter: 'bottom',
 
 
-  # toolbar 按钮配置
-  # 注意第一个和最后一个按键是固定的，不可配置
-  # 按钮代号列表如下：
-  # 【元书相关】
-  # 1-脚本  2-常用语  3-剪贴板
-  # 4-皮肤  5-文件管理器  6-方案切换
-  # 7-数字键盘  8-符号键盘  9-表情键盘
-  # 10-查看性能  11-左手模式  12-右手模式
-  # 【Rime 相关】
-  # 13-Rime同步  14-Rime部署  15-方案管理
-  # 16-快符  17-RimeSwitcher
-  # 【皮肤相关】
-  # 18-皮肤微调  19-按键功能定义
-  # 【文本编辑相关】
-  # 20-全选  21-复制  22-剪切
-  # 23-粘贴  24-撤销  25-重做
-  # 26-左移  27-右移
-  #
-  # 将上述代号填入下面的数组即可
-  toolbarSlideButtons: [ 17, 8, 9, 12 ],
-  # 工具栏滑动区宽度（占几个按钮位）
-  toolbarSlideButtonsMaxCount: { portrait: 5, landscape: 8 },
+  # 工具栏按钮固定为：
+  #   iPhone 竖屏：效率 / Rime切换 / 符号 / emoji / 关闭
+  #   iPhone 横屏：分屏切换 / 效率 / Rime切换 / 符号 / emoji / 关闭
+  #   iPad：      地球键 / 分屏切换 / 效率 / Rime切换 / 符号 / emoji / 关闭
 
   # 优先显示图标 (true=图标  false=文字)
   preferIcon: true,

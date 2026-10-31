@@ -163,7 +163,7 @@ else
 };
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     local insets = if isPortrait then backgroundInsets.portrait else backgroundInsets.landscape;
 
     local extraParams = {
@@ -171,7 +171,7 @@ else
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, 'numeric')
+    + toolbar.new(isDark, isPortrait, 'numeric', showGlobe=std.get(options, 'showGlobe', false))
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -182,4 +182,5 @@ else
     + basicStyle.newButtonAnimation()
     + newKeyLayout(isDark, isPortrait, extraParams)
     // Notifications
+    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
 }

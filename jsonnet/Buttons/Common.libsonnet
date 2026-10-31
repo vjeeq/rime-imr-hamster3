@@ -159,7 +159,8 @@ local settings = import '../Settings.libsonnet';
   gotoPrimaryKeyboardButton: {
     name: 'gotoPrimaryKeyboardButton',
     params: {
-      action: 'returnPrimaryKeyboard',
+      // 返回进入数字键盘前的那个键盘类型（分体 / 连体都能保持）
+      action: 'returnLastKeyboard',
       systemImageName: 'arrow.backward',
       text: '返回',
     },

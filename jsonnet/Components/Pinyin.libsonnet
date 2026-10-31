@@ -6,15 +6,15 @@ local layoutSigma = import './Pinyin/PinyinSigma.libsonnet';
 local layoutKeytao = import './Pinyin/PinyinKeytao.libsonnet';
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     if settings.keyboardLayout == '9' then
-      layout9.new(isDark, isPortrait)
+      layout9.new(isDark, isPortrait, options)
     else if settings.keyboardLayout == '17' then
-      layout17.new(isDark, isPortrait)
+      layout17.new(isDark, isPortrait, options)
     else if settings.keyboardLayout == 'sigma' then
-      layoutSigma.new(isDark, isPortrait)
+      layoutSigma.new(isDark, isPortrait, options)
     else if settings.keyboardLayout == 'keytao' then
-      layoutKeytao.new(isDark, isPortrait)
+      layoutKeytao.new(isDark, isPortrait, options=options)
     else
-      layout26.new(isDark, isPortrait),
+      layout26.new(isDark, isPortrait, options=options),
 }

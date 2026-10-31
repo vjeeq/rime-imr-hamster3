@@ -197,7 +197,7 @@ local newKeyLayout(isDark=false, isPortrait=false, keyboardType=KeyboardType.Chi
   KeyboardType:: KeyboardType,
 
   // 从拼音键盘切过来时，keyboardType 为 KeyboardType.Chinese；从英文键盘切过来时，keyboardType 为 KeyboardType.English
-  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese):
+  new(isDark, isPortrait, keyboardType=KeyboardType.Chinese, options={}):
     local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {
@@ -205,7 +205,7 @@ local newKeyLayout(isDark=false, isPortrait=false, keyboardType=KeyboardType.Chi
     };
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, 'numeric')
+    + toolbar.new(isDark, isPortrait, 'numeric', showGlobe=std.get(options, 'showGlobe', false))
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -216,4 +216,5 @@ local newKeyLayout(isDark=false, isPortrait=false, keyboardType=KeyboardType.Chi
     + basicStyle.newButtonAnimation()
     + newKeyLayout(isDark, isPortrait, keyboardType)
     // Notifications
+    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
 }

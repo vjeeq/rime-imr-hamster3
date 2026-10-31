@@ -75,6 +75,15 @@ local settings = import '../Settings.libsonnet';
         text: '关闭',
       },
     },
+    // 切换输入法（iPad 没有系统自带的地球键，需要皮肤自己提供）
+    toolbarNextKeyboardButton: {
+      name: 'toolbarNextKeyboardButton',
+      params: {
+        action: 'nextKeyboard',
+        systemImageName: 'globe',
+        text: '切换键盘',
+      },
+    },
 
     toolbarPerformanceButton: {
       name: 'toolbarPerformanceButton',

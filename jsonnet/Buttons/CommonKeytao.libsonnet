@@ -63,6 +63,16 @@ local settings = import '../Settings.libsonnet';
     },
   },
 
+  // 分屏布局右半边的空格键（不显示方案名，纯空格）
+  spaceRightButton: {
+    name: 'spaceRightButton',
+    params: {
+      action: 'space',
+      systemImageName: 'space',
+      center: { x: 0.5, y: 0.5 },
+    },
+  },
+
   tabButton: {
     name: 'tabButton',
     params: {
@@ -159,7 +169,8 @@ local settings = import '../Settings.libsonnet';
   gotoPrimaryKeyboardButton: {
     name: 'gotoPrimaryKeyboardButton',
     params: {
-      action: 'returnPrimaryKeyboard',
+      // 返回进入数字键盘前的那个键盘类型（分体 / 连体都能保持）
+      action: 'returnLastKeyboard',
       systemImageName: 'arrow.backward',
       text: '返回',
     },

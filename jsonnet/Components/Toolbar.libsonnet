@@ -1,6 +1,5 @@
 local colors = import '../Constants/Colors.libsonnet';
 local keyboardParams = import '../Buttons/Toolbar.libsonnet';
-local settings = import '../Settings.libsonnet';
 local basicStyle = import '../Styles/BasicStyle.libsonnet';
 local utils = import '../Utils/Utils.libsonnet';
 
@@ -195,80 +194,54 @@ local newVerticalCandidateBackspaceButtonStyle(isDark) = {
     ),
 };
 
-// NOTE: 工具栏按钮列表，顺序与 settings.toolbarButtons 中的描述对应
-local toolbarButtonNames = local buttons = keyboardParams.toolbarButton;
-[
-  buttons.toolbarScriptButton.name, // 脚本
-  buttons.toolbarPhraseButton.name, // 常用语
-  buttons.toolbarClipboardButton.name, // 剪贴板
-  buttons.toolbarSkinButton.name, // 皮肤
-  buttons.toolbarFinderButton.name, // 打开元书文件管理器
-  buttons.toolbarSchemaSelectorButton.name, // 方案切换
-  buttons.toolbarKeyboardNumericButton.name, // 数字键盘
-  buttons.toolbarKeyboardSymbolicButton.name, // 符号键盘
-  buttons.toolbarKeyboardEmojiButton.name, // 表情键盘
-  buttons.toolbarPerformanceButton.name, // 查看性能
-  buttons.toolbarLeftHandButton.name, // 左手模式
-  buttons.toolbarRightHandButton.name, // 右手模式
-  buttons.toolbarRimeSyncButton.name, // Rime同步
-  buttons.toolbarRimeDeployButton.name, // Rime部署
-  buttons.toolbarRimeInputSchemaButton.name, // Rime方案管理
-  buttons.toolbarRimeQuickButton.name, // 快符
-  buttons.toolbarRimeSwitcherButton.name, // RimeSwitcher
-  buttons.toolbarSkinPreference.name, // 皮肤微调
-  buttons.toolbarKeyboardDefinition.name, // 键盘按键定义
-  buttons.toolbarSelectAllTextButton.name, // 全选文本
-  buttons.toolbarCopyTextButton.name, // 复制文本
-  buttons.toolbarCutTextButton.name, // 剪切文本
-  buttons.toolbarPasteTextButton.name, // 粘贴文本
-  buttons.toolbarUndoButton.name, // 撤销
-  buttons.toolbarRedoButton.name, // 重做
-  buttons.toolbarMoveCursorLeftButton.name, // 光标左移
-  buttons.toolbarMoveCursorRightButton.name, // 光标右移
+// 固定工具栏按钮：效率 / Rime切换 / 符号 / emoji
+// 符号、emoji 在各自键盘上按 OnSymbolic / OnEmojis 变成返回主键盘
+local fixedToolbarButtons = [
+  keyboardParams.toolbarButton.toolbarPerformanceButton,
+  keyboardParams.toolbarButton.toolbarRimeSwitcherButton,
+  keyboardParams.toolbarButton.toolbarKeyboardSymbolicButton,
+  keyboardParams.toolbarButton.toolbarKeyboardEmojiButton,
 ];
 
-local needSlideToolbar(slideButtons, slideButtonsMaxCount) =
-  std.length(slideButtons) > slideButtonsMaxCount;
-
-local toolbarKeyboardLayout(slideButtons, slideButtonsMaxCount) = [
+local toolbarKeyboardLayout(showGlobe=false, toggleTarget=null) = [
   {
     HStack: {
-      subviews: [
-        { Cell: keyboardParams.toolbarButton.toolbarMenuButton.name, },
-      ] + (
-        if needSlideToolbar(slideButtons, slideButtonsMaxCount) then
-          [{ Cell: basicStyle.toolbarSlideButtonsName, }]
-        else
-          [{ Cell: '' } for i in std.range(1, slideButtonsMaxCount - std.length(slideButtons))] +
-          [{ Cell: button.name, } for button in slideButtons]
-      ) + [
-        { Cell: keyboardParams.toolbarButton.toolbarDismissButton.name, },
-      ],
+      subviews:
+        (if showGlobe then [{ Cell: keyboardParams.toolbarButton.toolbarNextKeyboardButton.name }] else []) +
+        (if toggleTarget != null then [{ Cell: 'toolbarToggleSplitButton' }] else []) +
+        [{ Cell: button.name } for button in fixedToolbarButtons] +
+        [{ Cell: keyboardParams.toolbarButton.toolbarDismissButton.name }],
     },
   },
 ];
 
+local newFixedButtons(isDark, keyboardName) =
+  std.foldl(
+    function(acc, button) acc +
+      basicStyle.newToolbarButton(
+        button.name,
+        isDark,
+        std.mergePatch(button.params, std.get(button.params, 'On'+utils.capitalize(keyboardName), default={}))
+      ),
+    fixedToolbarButtons,
+    {}
+  );
 
-local newSlideAreaButtons(slideButtons, slideButtonsMaxCount, isDark, keyboardName) =
-  if needSlideToolbar(slideButtons, slideButtonsMaxCount) then
-    basicStyle.newToolbarSlideButtons(slideButtons, slideButtonsMaxCount, isDark)
-  else
-    std.foldl(
-      function(acc, button) acc +
-        basicStyle.newToolbarButton(
-          button.name,
-          isDark,
-          std.mergePatch(button.params, std.get(button.params, 'On'+utils.capitalize(keyboardName), default={}))
-        ),
-      slideButtons,
-      {}
-    );
-
-local newButtons(isDark=false) =
-  basicStyle.newToolbarButton(
-    keyboardParams.toolbarButton.toolbarMenuButton.name,
-    isDark,
-    keyboardParams.toolbarButton.toolbarMenuButton.params,
+local newButtons(isDark=false, keyboardName, showGlobe=false, toggleParams=null) =
+  newFixedButtons(isDark, keyboardName)
+  + (
+    if showGlobe then
+      basicStyle.newToolbarButton(
+        keyboardParams.toolbarButton.toolbarNextKeyboardButton.name,
+        isDark,
+        keyboardParams.toolbarButton.toolbarNextKeyboardButton.params,
+      )
+    else {}
+  )
+  + (
+    if toggleParams != null then
+      basicStyle.newToolbarButton('toolbarToggleSplitButton', isDark, toggleParams)
+    else {}
   )
   + basicStyle.newToolbarButton(
     keyboardParams.toolbarButton.toolbarDismissButton.name,
@@ -276,22 +249,21 @@ local newButtons(isDark=false) =
     keyboardParams.toolbarButton.toolbarDismissButton.params,
   );
 
-local newToolbar(isDark=false, isPortrait=false, keyboardName, params={}) =
-  local slideButtons =
-  [
-    local btn = keyboardParams.toolbarButton[toolbarButtonNames[buttonCode - 1]];
-    std.mergePatch(btn, { params: std.get(btn.params, 'On'+utils.capitalize(keyboardName), {})})
-    for buttonCode in settings.toolbarSlideButtons
-  ];
-  local slideButtonsMaxCount =
-    if isPortrait then settings.toolbarSlideButtonsMaxCount.portrait else settings.toolbarSlideButtonsMaxCount.landscape;
+local newToolbar(isDark=false, isPortrait=false, keyboardName, params={}, showGlobe=false, toggleTarget=null, toggleIcon='rectangle.split.2x1', toggleText='分体') =
+  local toggleParams =
+    if toggleTarget == null then null
+    else {
+      action: { keyboardType: toggleTarget },
+      systemImageName: toggleIcon,
+      text: toggleText,
+    };
   {
     toolbarHeight: keyboardParams.toolbar.height,
     toolbarStyle: {
              insets: keyboardParams.toolbar.insets,
            }
            + utils.newBackgroundStyle(style=toolbarBackgroundStyleName),
-    toolbarLayout: toolbarKeyboardLayout(slideButtons, slideButtonsMaxCount),
+    toolbarLayout: toolbarKeyboardLayout(showGlobe, toggleTarget),
     horizontalCandidatesStyle:
       utils.extractProperties(keyboardParams.horizontalCandidateStyle + params, ['insets'])
       {
@@ -311,8 +283,7 @@ local newToolbar(isDark=false, isPortrait=false, keyboardName, params={}) =
       },
     ],
   }
-  + newButtons(isDark)
-  + newSlideAreaButtons(slideButtons, slideButtonsMaxCount, isDark, keyboardName)
+  + newButtons(isDark, keyboardName, showGlobe, toggleParams)
   + newHorizontalCandidatesCollectionView(isDark)
   + newExpandButton(isDark)
   + newVerticalCandidateCollectionStyle(isDark)

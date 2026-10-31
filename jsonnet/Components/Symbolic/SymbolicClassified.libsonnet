@@ -90,7 +90,7 @@ local newKeyLayout(isDark=false, isPortrait=true, extraParams={}) =
   );
 
 {
-  new(isDark, isPortrait):
+  new(isDark, isPortrait, options={}):
     local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
 
     local extraParams = {

@@ -52,7 +52,7 @@ local newKeyLayout(isDark=false, isPortrait=false) =
       {});
 
 {
-  new(isDark=false, isPortrait=false):
+  new(isDark=false, isPortrait=false, options={}):
     basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newFloatingKeyboardButtonBackgroundStyle(isDark)
     + newKeyLayout(isDark, isPortrait),

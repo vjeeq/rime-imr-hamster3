@@ -404,6 +404,13 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
           highlightColor: { light: '#BDEAB3', dark: '#407737' },
           cornerRadius: 8.5,
         }, isDark),
+        // F/J 橙色：与上面的绿色同亮度 / 同饱和度，只把色相转到橙色
+        keytaoOrangeBackgroundStyle: utils.newGeometryStyle({
+          insets: insets,
+          normalColor: { light: '#F4DFCA', dark: '#61462B' },
+          highlightColor: { light: '#EACEB3', dark: '#775737' },
+          cornerRadius: 8.5,
+        }, isDark),
       }
     + {
         alphabeticButtonSimplifiedStyle: utils.newTextStyle({

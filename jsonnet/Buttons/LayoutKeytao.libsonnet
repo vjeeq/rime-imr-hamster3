@@ -185,6 +185,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'f' },
       uppercased: { action: { character: 'F' } },
+      backgroundStyleName: 'keytaoOrangeBackgroundStyle',
       swipeUp: { action: { character: '《' }, center: { x: 0.5, y: 0.23 }, insets: { left: -2.232, right: 2.232 } },
       swipeDown: { action: { character: '》' }, center: { x: 0.5, y: 0.77 }, insets: { left: 2.232, right: -2.232 } },
       OnAlphabetic: {
@@ -233,6 +234,7 @@ local settings = import '../Settings.libsonnet';
     params: {
       action: { character: 'j' },
       uppercased: { action: { character: 'J' } },
+      backgroundStyleName: 'keytaoOrangeBackgroundStyle',
       swipeUp: { action: { character: '「' }, center: { x: 0.5, y: 0.23 }, insets: { left: -2.790, right: 2.790 } },
       swipeDown: { action: { character: '」' }, center: { x: 0.5, y: 0.77 }, insets: { left: 2.763, right: -2.763 } },
       OnAlphabetic: {

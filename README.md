@@ -1,5 +1,5 @@
 ## 「空山素影」皮肤特点
-- 支持多种键盘布局，包括 26 键、9键、14键、17键、18键、注音键盘、[西戈拼音](https://www.bilibili.com/video/BV1aipxzPEj5/?t=705.3)等布局。
+- 支持 9 键和 26 键（KeyTao）布局，并适配 iPhone / iPad 的横竖屏与分体/连体键盘。
 - 数字键盘布局包括九宫格、全键盘、16进制等布局。
 - 符号键盘布局包括默认、全键盘、分类符号等布局。
 - 不包含图片资源，风格接近原生键盘。
@@ -60,7 +60,7 @@ enter 上划行首，下划行尾，长按换行
     - iPhone 横屏 / iPad 竖屏左右各 44%；iPad 横屏左右各 32.5%
   - `splitPhoneLandscape` / `splitPadLandscape` / `splitPadPortrait`：是否启用分屏
   - `showNextKeyboardOnPad`：iPad 工具栏是否显示地球键
-- 分屏只作用于键道中英键盘，左右各 6 列，重叠 T/Y、G/H、V/B：
+- 分屏只作用于 26 键中英键盘，左右各 6 列，重叠 T/Y、G/H、V/B：
   - 左：Q W E R T Y / A S D F G H / Shift Z X C V B / 简En ， 空格
   - 右：T Y U I O P / G H J K L □ / V B N M 退格 / 空格 ； 回车
   - 所有字母统一 1/6 半边宽；T/Y、G/H、V/B 两侧都有，按哪边都可以

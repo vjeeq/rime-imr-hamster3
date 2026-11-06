@@ -6,12 +6,11 @@
 键盘按键功能设置位于 `jsonnet/Buttons/` 文件夹下。
 各文件及包含的按键对应如下：
 - README.md：本说明文件。
-- Common：一些通用按键功能，例如shift, space, enter 等。
+- Common：9 键 / 数字 / 符号键盘共用的按键功能，例如 shift、space、enter 等。
+- Common26：26 键（KeyTao）布局的通用按键，例如中英键、分号键、空格、回车等。
 - Layout9: 九键键盘。
-- Layout17：17键布局。
-- Layout26：26键中文和英文键盘。
+- Layout26：26 键（KeyTao）中文和英文键盘。
 - LayoutNumeric：数字键盘。
-- LayoutSigma: 西戈拼音键盘。
 - Toolbar：工具栏和浮动面板中的按键。
 
 按键的具体配置语法可以参考后面的「按键语法说明」部分。
@@ -116,7 +115,7 @@ shiftButton: {
 
 ### OnAlphabetic 当切换到英文键盘时的配置
 注意此选项只能在两个场景使用：
-1. 26 键布局的按键中使用，这些按键大部分位于 `jsonnet/Buttons/Layout26.libsonnet` 文件中，少部分位于 `jsonnet/Buttons/Common.libsonnet` 文件中。
+1. 26 键布局的按键中使用，这些按键大部分位于 `jsonnet/Buttons/Layout26.libsonnet` 文件中，少部分位于 `jsonnet/Buttons/Common26.libsonnet` 文件中。
 2. 英文键盘切到行式数字键盘(row)时使用，这些按键位于 `jsonnet/Buttons/LayoutNumeric.libsonnet` 文件中。
 
 `OnAlphabetic` 可以用来配置按键在切换到英文键盘（或英文行式数字键盘）时的显示和行为，例如逗号键，在中文键盘下显示中文逗号，在英文键盘下显示英文逗号，写法如下：

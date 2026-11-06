@@ -1,7 +1,8 @@
 local buttons = import '../../Buttons/Layout26.libsonnet';
-local commonButtons = import '../../Buttons/Common.libsonnet';
+local commonButtons = import '../../Buttons/Common26.libsonnet';
 local toolbarParams = import '../../Buttons/Toolbar.libsonnet';
 local settings = import '../../Settings.libsonnet';
+local colors = import '../../Constants/Colors.libsonnet';
 local basicStyle = import '../../Styles/BasicStyle.libsonnet';
 local preedit = import '../Preedit.libsonnet';
 local toolbar = import '../Toolbar.libsonnet';
@@ -25,6 +26,12 @@ local getSwitchButton(keyboardType) =
     commonButtons.goBackButton
   else
     commonButtons.alphabeticButton;
+
+local isSplitLayout(isPortrait, options) =
+  if isPortrait then
+    std.get(options, 'splitPortrait', false)
+  else
+    std.get(options, 'splitLandscape', false);
 
 local keyboardLayout(keyboardType) = {
   keyboardLayout: [
@@ -77,14 +84,120 @@ local keyboardLayout(keyboardType) = {
     {
       HStack: {
         subviews: [
-          { Cell: commonButtons.numericButton.name },
+          { Cell: getSwitchButton(keyboardType).name },
           { Cell: commonButtons.commaButton.name },
           { Cell: commonButtons.spaceButton.name },
-          { Cell: getSwitchButton(keyboardType).name },
+          { Cell: commonButtons.semicolonButton.name },
           { Cell: commonButtons.enterButton.name },
         ],
       },
     },
+  ],
+};
+
+// 分屏布局：左右半边按比例，中间空隙自动占掉剩余宽度
+local newSplitHalfStyles(halfPercent) = {
+  splitHalfLeft: { size: { width: { percentage: halfPercent } } },
+  splitHalfRight: { size: { width: { percentage: halfPercent } } },
+};
+
+// 空位：占一格，但背景几乎透明，点了也没有动作
+local newSplitSpacerStyle(isDark) = {
+  splitSpacer: {
+    size: { width: '1/6' },
+    backgroundStyle: 'splitSpacerBackground',
+    action: 'none',
+  },
+  splitSpacerBackground: utils.newGeometryStyle({
+    normalColor: '#00000001',
+    highlightColor: '#00000001',
+    cornerRadius: 8.5,
+  }, isDark),
+};
+
+local splitCells(names) = [{ Cell: name } for name in names];
+
+// 左右各 6 列，重叠 T/Y、G/H、V/B：中间交界处两手都能按
+local splitLeftRows(keyboardType) = [
+  {
+    HStack: {
+      subviews: splitCells([
+        buttons.qButton.name, buttons.wButton.name, buttons.eButton.name,
+        buttons.rButton.name, buttons.tButton.name, buttons.yButton.name,
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        buttons.aButton.name, buttons.sButton.name, buttons.dButton.name,
+        buttons.fButton.name, buttons.gButton.name, buttons.hButton.name,
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        commonButtons.shiftButton.name,
+        buttons.zButton.name, buttons.xButton.name, buttons.cButton.name,
+        buttons.vButton.name, buttons.bButton.name,
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        getSwitchButton(keyboardType).name,
+        commonButtons.commaButton.name,
+        commonButtons.spaceButton.name,
+      ]),
+    },
+  },
+];
+
+local splitRightRows(keyboardType) = [
+  {
+    HStack: {
+      subviews: splitCells([
+        buttons.tButton.name, buttons.yButton.name, buttons.uButton.name,
+        buttons.iButton.name, buttons.oButton.name, buttons.pButton.name,
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        buttons.gButton.name, buttons.hButton.name, buttons.jButton.name,
+        buttons.kButton.name, buttons.lButton.name,
+        // 物理键盘这里还有 ; 键，本皮肤把它放在底部，所以留空
+        'splitSpacer',
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        buttons.vButton.name, buttons.bButton.name, buttons.nButton.name,
+        buttons.mButton.name, commonButtons.backspaceButton.name,
+      ]),
+    },
+  },
+  {
+    HStack: {
+      subviews: splitCells([
+        commonButtons.spaceRightButton.name,
+        commonButtons.semicolonButton.name,
+        commonButtons.enterButton.name,
+      ]),
+    },
+  },
+];
+
+local keyboardLayoutSplit(keyboardType) = {
+  keyboardLayout: [
+    { VStack: { style: 'splitHalfLeft', subviews: splitLeftRows(keyboardType) } },
+    { VStack: {} },
+    { VStack: { style: 'splitHalfRight', subviews: splitRightRows(keyboardType) } },
   ],
 };
 
@@ -110,13 +223,18 @@ local getAlphabeticButtonSize(name) =
     portraitNormalButtonSize
   );
 
-local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese) =
+// 分屏时所有字母统一 1/6 半边宽（分母 6 = 半边宽度）
+local getSplitAlphabeticButtonSize(name) =
+  { size: { width: '1/6' } };
+
+local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chinese, options={}) =
   local isAlphabetic = keyboardType == KeyboardType.English;
+  local isSplit = isSplitLayout(isPortrait, options);
   {
     keyboardHeight: if isPortrait then commonButtons.keyboardHeight.portrait else commonButtons.keyboardHeight.landscape,
     keyboardStyle: utils.newBackgroundStyle(style=basicStyle.keyboardBackgroundStyleName),
   }
-  + keyboardLayout(keyboardType)
+  + (if isSplit then keyboardLayoutSplit(keyboardType) else keyboardLayout(keyboardType))
 
   // letter Buttons
   + std.foldl(function(acc, button)
@@ -124,7 +242,7 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       basicStyle.newAlphabeticButton(
         button.name,
         isDark,
-        getAlphabeticButtonSize(button.name) +
+        (if isSplit then getSplitAlphabeticButtonSize(button.name) else getAlphabeticButtonSize(button.name)) +
         utils.processButtonParams(isAlphabetic, button.params) + basicStyle.hintStyleSize + basicStyle.textCenterWhenShowSwipeText +
         (
           if keyboardType != KeyboardType.English && settings.uppercaseForChinese then
@@ -139,12 +257,14 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     commonButtons.shiftButton.name,
     isDark,
     (
-      if settings.keyboardLayout=='26b' then portraitNormalButtonSize else
+      if isSplit then
+      {
+        size: { width: '1/6' },
+      }
+      else if settings.keyboardLayout=='26b' then portraitNormalButtonSize else
       {
         size:
           { width: '168.75/1125' },
-        bounds:
-          { width: '151/168.75', alignment: 'left' },
       }
     )
     + utils.processButtonParams(isAlphabetic, commonButtons.shiftButton.params)
@@ -154,7 +274,12 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     commonButtons.backspaceButton.name,
     isDark,
     (
-      if settings.keyboardLayout=='26b' then
+      if isSplit then
+      {
+        // 退格占 2 格，正好填满右半第三行
+        size: { width: '2/6' },
+      }
+      else if settings.keyboardLayout=='26b' then
       {
         size: { width: '225/1125' },
       }
@@ -162,25 +287,16 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       {
         size:
           { width: '168.75/1125' },
-        bounds:
-          { width: '151/168.75', alignment: 'right' },
       }
     )
     + utils.processButtonParams(isAlphabetic, commonButtons.backspaceButton.params),
   )
 
   // Fourth Row
-  + basicStyle.newSystemButton(
-    commonButtons.numericButton.name,
-    isDark,
-    { size: { width: '207.5/1125' } }
-    + utils.processButtonParams(isAlphabetic, commonButtons.numericButton.params)
-  )
-
   + basicStyle.newAlphabeticButton(
     commonButtons.commaButton.name,
     isDark,
-    { size: { width: '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
+    { size: { width: if isSplit then '1/6' else '130/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.commaButton.params) + basicStyle.hintStyleSize,
     swipeTextFollowSetting=false,
   )
   + basicStyle.newAlphabeticButton(
@@ -195,21 +311,50 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
       else
         '$rimeSchemaName',
       isDark
-    ),
+    )
+    + (if isSplit then { size: { width: '3.5/6' } } else {}),
     needHint=false,
   )
+  + (if isSplit then
+    basicStyle.newAlphabeticButton(
+      commonButtons.spaceRightButton.name,
+      isDark,
+      { size: { width: '3/6' } }
+      + utils.processButtonParams(isAlphabetic, commonButtons.spaceRightButton.params),
+      needHint=false,
+    )
+  else {})
+  + basicStyle.newAlphabeticButton(
+    commonButtons.semicolonButton.name,
+    isDark,
+    { size: { width: if isSplit then '1/6' else '168.75/1125' } } + utils.processButtonParams(isAlphabetic, commonButtons.semicolonButton.params) + basicStyle.hintStyleSize,
+    swipeTextFollowSetting=false,
+  )
   + local switchButton = getSwitchButton(keyboardType);
+    local switchParams =
+      local target = std.get(options, 'languageTarget', null);
+      if target == null then
+        switchButton.params
+      else
+        // 保持当前分体/连体模式，只替换中英切换目标
+        utils.replaceKeyboardTypeRecursive(
+          switchButton.params,
+          if keyboardType == KeyboardType.English then 'pinyin' else 'alphabetic',
+          target
+        );
     basicStyle.newSystemButton(
     switchButton.name,
     isDark,
-    { size: { width: '130/1125' } }
-    + utils.processButtonParams(isAlphabetic, switchButton.params)
+    {
+      size: { width: if isSplit then '1.5/6' else '168.75/1125' },
+    }
+    + utils.processButtonParams(isAlphabetic, switchParams)
   )
   + basicStyle.newColorButton(
     commonButtons.enterButton.name,
     isDark,
     {
-      size: { width: '250/1125' },
+      size: { width: if isSplit then '2/6' else '250/1125' },
     } + utils.processButtonParams(isAlphabetic, commonButtons.enterButton.params)
   )
 ;
@@ -218,18 +363,36 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
   // 枚举键盘类型
   KeyboardType:: KeyboardType,
 
-  // keyboardType=Temp26Key 表示这个26键布局是临时使用的，比如当前是拼音17键布局，但是想使用雾凇方案中的 V 模式
-  // 只在非26键布局下额外生成一个26键布局，action 使用 character，把动作发给 Rime 处理
-  // 和主键盘的区别在于"中英切换键"改为"返回"键
   new(isDark, isPortrait, keyboardType=KeyboardType.Chinese, options={}):
-	local insets = if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape;
+    local isPad = std.get(options, 'isPad', false);
+    local insets =
+      if isPad then
+        (if isPortrait then commonButtons.padBackgroundInsets.portrait else commonButtons.padBackgroundInsets.landscape)
+      else
+        (if isPortrait then commonButtons.backgroundInsets.portrait else commonButtons.backgroundInsets.landscape);
 
     local extraParams = {
       insets: insets,
     };
+    local isSplit = isSplitLayout(isPortrait, options);
+    local gapPercent =
+      if isPortrait then
+        (if isPad then settings.splitGapPercent.padPortrait else settings.splitGapPercent.phonePortrait)
+      else
+        (if isPad then settings.splitGapPercent.padLandscape else settings.splitGapPercent.phoneLandscape);
+    local halfPercent = (1 - gapPercent) / 2;
 
     preedit.new(isDark)
-    + toolbar.new(isDark, isPortrait, if keyboardType == KeyboardType.Chinese then 'pinyin' else 'alphabetic', showGlobe=std.get(options, 'showGlobe', false))
+    + toolbar.new(
+        isDark,
+        isPortrait,
+        if keyboardType == KeyboardType.Chinese then 'pinyin' else 'alphabetic',
+        showGlobe=std.get(options, 'showGlobe', false),
+        toggleTarget=std.get(options, 'toggleTarget', null),
+        toggleIcon=std.get(options, 'toggleIcon', 'rectangle.split.2x1'),
+        toggleText=std.get(options, 'toggleText', '分体')
+      )
+    + (if isSplit then newSplitHalfStyles(halfPercent) + newSplitSpacerStyle(isDark) else {})
     + basicStyle.newKeyboardBackgroundStyle(isDark)
     + basicStyle.newAlphabeticButtonBackgroundStyle(isDark, extraParams)
     + basicStyle.newSystemButtonBackgroundStyle(isDark, extraParams)
@@ -238,8 +401,80 @@ local newKeyLayout(isDark=false, isPortrait=true, keyboardType=KeyboardType.Chin
     + basicStyle.newLongPressSymbolsBackgroundStyle(isDark, extraParams)
     + basicStyle.newLongPressSymbolsSelectedBackgroundStyle(isDark, extraParams)
     + basicStyle.newButtonAnimation()
-    + newKeyLayout(isDark, isPortrait, keyboardType)
+    + {
+        layout26SoftBackgroundStyle: utils.newGeometryStyle({
+          insets: insets,
+          normalColor: { light: '#D4F4CA', dark: '#33612B' },
+          highlightColor: { light: '#BDEAB3', dark: '#407737' },
+          cornerRadius: 8.5,
+        }, isDark),
+        // F/J 橙色：与上面的绿色同亮度 / 同饱和度，只把色相转到橙色
+        layout26OrangeBackgroundStyle: utils.newGeometryStyle({
+          insets: insets,
+          normalColor: { light: '#F4DFCA', dark: '#61462B' },
+          highlightColor: { light: '#EACEB3', dark: '#775737' },
+          cornerRadius: 8.5,
+        }, isDark),
+      }
+    + {
+        alphabeticButtonSimplifiedStyle: utils.newTextStyle({
+          text: '简/En',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        alphabeticButtonTraditionalStyle: utils.newTextStyle({
+          text: '繁/En',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        pinyinButtonSimplifiedStyle: utils.newTextStyle({
+          text: 'En/简',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        pinyinButtonTraditionalStyle: utils.newTextStyle({
+          text: 'En/繁',
+          fontSize: 14,
+          normalColor: colors.systemButtonForegroundColor,
+          highlightColor: colors.systemButtonHighlightedForegroundColor,
+        }, isDark),
+        alphabeticButtonTraditionalNotification: {
+          notificationType: 'rime',
+          rimeNotificationType: 'optionChanged',
+          rimeOptionName: 'traditionalization',
+          rimeOptionValue: true,
+          backgroundStyle: 'systemButtonBackgroundStyle',
+          foregroundStyle: 'alphabeticButtonTraditionalStyle',
+        },
+        pinyinButtonTraditionalNotification: {
+          notificationType: 'rime',
+          rimeNotificationType: 'optionChanged',
+          rimeOptionName: 'traditionalization',
+          rimeOptionValue: true,
+          backgroundStyle: 'systemButtonBackgroundStyle',
+          foregroundStyle: 'pinyinButtonTraditionalStyle',
+        },
+      }
+    + newKeyLayout(isDark, isPortrait, keyboardType, options)
+    + {
+        // preedit 通知会整体替换前景样式，这里让它也按繁简状态选择，避免输入中显示回「简/En」
+        alphabeticButtonPreeditChangedNotification+: {
+          foregroundStyle: [
+            { conditionKey: 'rime$traditionalization', conditionValue: false, styleName: 'alphabeticButtonSimplifiedStyle' },
+            { conditionKey: 'rime$traditionalization', conditionValue: true, styleName: 'alphabeticButtonTraditionalStyle' },
+          ],
+        },
+        pinyinButtonPreeditChangedNotification+: {
+          foregroundStyle: [
+            { conditionKey: 'rime$traditionalization', conditionValue: false, styleName: 'pinyinButtonSimplifiedStyle' },
+            { conditionKey: 'rime$traditionalization', conditionValue: true, styleName: 'pinyinButtonTraditionalStyle' },
+          ],
+        },
+      }
     // Notifications
     + basicStyle.rimeSchemaChangedNotification
-    + { keyboardHeight: utils.keyboardHeightFor(settings, std.get(options, 'isPad', false), isPortrait) }
+    + { keyboardHeight: utils.keyboardHeightFor(settings, isPad, isPortrait) }
 }

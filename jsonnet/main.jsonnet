@@ -8,7 +8,7 @@ local symbolicRowEnComponent = import 'Components/Symbolic/SymbolicRowEn.libsonn
 local panelComponent = import 'Components/Panel.libsonnet';
 local settings = import 'Settings.libsonnet';
 
-local isKeytao = settings.keyboardLayout == 'keytao';
+local is26 = settings.keyboardLayout == '26';
 
 local nameToComponent = {
   pinyin: pinyinComponent,
@@ -17,12 +17,12 @@ local nameToComponent = {
   panel: panelComponent,
   [if settings.symbolicLayout != 'default' then 'symbolic']: symbolicComponent,
 
-  // 键道专用：分体 / 连体两种键盘类型
-  [if isKeytao then 'pinyinJoined']: pinyinComponent,
-  [if isKeytao then 'alphabeticJoined']: alphabeticComponent,
+  // 26 键专用：分体 / 连体两种键盘类型
+  [if is26 then 'pinyinJoined']: pinyinComponent,
+  [if is26 then 'alphabeticJoined']: alphabeticComponent,
 
   // 这几个组件只有在特定条件下才会被使用
-  [if !std.startsWith(settings.keyboardLayout, '26') then 'temp26Key']: temp26Component,
+  [if settings.keyboardLayout == '9' then 'temp26Key']: temp26Component,
   [if settings.numericLayout == 'row' then 'numericRowEn']: numericRowEnComponent,
   [if settings.symbolicLayout == 'row' then 'symbolicRowEn']: symbolicRowEnComponent,
 };
@@ -44,7 +44,7 @@ local variantOptions = {
 //   简/En:      pinyin <-> alphabetic, pinyinJoined <-> alphabeticJoined
 //   工具栏按钮: pinyin <-> pinyinJoined, alphabetic <-> alphabeticJoined
 local typeOptions =
-  if isKeytao then {
+  if is26 then {
     pinyin: {
       split: true,
       languageTarget: 'alphabetic',
@@ -107,11 +107,11 @@ local config = {
   ],
 } + {
   [name]: {
-    iPhone: {
+    phone: {
       portrait: getFileName(name, isPortrait=true, variant='phone'),
       landscape: getFileName(name, isPortrait=false, variant='phone'),
     },
-    iPad: {
+    pad: {
       portrait: getFileName(name, isPortrait=true, variant='pad'),
       landscape: getFileName(name, isPortrait=false, variant='pad'),
       // 浮动键盘空间小，不分屏，也不加地球键 / 分体按钮，直接用手机竖屏布局

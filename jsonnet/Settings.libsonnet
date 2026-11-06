@@ -2,8 +2,8 @@
 # 皮肤设置文件。改完保存后，长按皮肤 →「运行 main.jsonnet」
 #======================================
 {
-  # 键盘布局:  9=九键  17=17键  26=全键  sigma=西戈  keytao=KeyTao
-  keyboardLayout: 'keytao',
+  # 键盘布局:  9=九键  26=全键（KeyTao 布局）
+  keyboardLayout: '26',
 
   # 数字键盘:  9=九宫格  row=横排  hex=十六进制
   numericLayout: '9',
@@ -11,7 +11,7 @@
   # 符号键盘:  default=系统自带  row=横排  classified=分类
   symbolicLayout: 'default',
 
-  # 打字时空格键显示的文字（仅 26/17/sigma 布局有效）
+  # 打字时空格键显示的文字（仅 26 布局有效）
   spaceButtonComposingText: '选定',
 
   # iPad 模式（影响内边距、数字键长按；键盘高度现在由 keyboardHeight 控制）
@@ -64,7 +64,7 @@
   # 主题色:  0无  1红  2绿  3橙  4蓝  5紫
   accentColor: 4,
 
-  # 中文模式下字母键大写 (true=大写  false=小写，仅 26键/西戈 有效)
+  # 中文模式下字母键大写 (true=大写  false=小写，仅 26 键有效)
   uppercaseForChinese: true,
 
   # Shift 键行为
